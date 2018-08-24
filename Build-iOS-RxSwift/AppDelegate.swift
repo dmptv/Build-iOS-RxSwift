@@ -7,15 +7,63 @@
 //
 
 import UIKit
+import IQKeyboardManagerSwift
+import Kingfisher
+import Lightbox
+import RxSwift
+import RxCocoa
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    let disposeBag = DisposeBag()
+    
+    // RxFlow
+    var coordinator = Coordinator()
+    var appFlow: AppFlow!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.backgroundColor = .white
+        window?.makeKeyAndVisible()
+        
+        guard let window = self.window else { return false }
+        
+        coordinator.rx.didNavigate
+            .subscribe(onNext: { (flow, step) in
+            print ("******** did navigate to flow=\(flow) and step=\(step)")
+        }).disposed(by: self.disposeBag)
+        
+        self.appFlow = AppFlow(with: window)
+        
+        let loggedIn = User.current.isAuthenticated
+        
+        // ask the Coordinator to coordinate this Flow with a first Step
+        if loggedIn {
+           
+        } else {
+            coordinator.coordinate(
+                flow: self.appFlow,
+                withStepper: OneStepper(withSingleStep: AppStep.login)
+            )
+        }
+        
+        IQKeyboardManager.shared.enable = true
+        
+        LightboxConfig.loadImage = { imageView, url, completion in
+            
+//            ImageDownloader.download(image: url.absoluteString, completion: { (image) in
+//                if let image = image {
+//                    imageView.image = image
+//                    completion?(image)
+//                }
+//            })
+        }
+        
+        
         return true
     }
 
@@ -43,4 +91,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
