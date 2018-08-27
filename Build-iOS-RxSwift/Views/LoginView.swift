@@ -64,6 +64,24 @@ class LoginView: UIView, UITextFieldDelegate, MaskedTextFieldDelegateListener {
         }
     }
     
+    // MARK: - Methods
+    
+    public func setLogin(error: String?) {
+        phoneField?.detail = error
+        phoneField?.isErrorRevealed = error != nil
+        
+        setNeedsLayout()
+        layoutIfNeeded()
+    }
+    
+    public func setPassword(error: String?) {
+        passwordField?.detail = error
+        passwordField?.isErrorRevealed = error != nil
+        
+        setNeedsLayout()
+        layoutIfNeeded()
+    }
+    
     // MARK: - UI
     
     private func setupHeaderView() {

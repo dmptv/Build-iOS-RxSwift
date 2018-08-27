@@ -12,6 +12,32 @@ import RealmSwift
 
 struct App {
     
+    // MARK: - Strings
+    
+    struct String {
+        private static let devBaseUrl = "https://api.github.com"
+        private static let prodBaseUrl = "https://api.github.com"
+        
+        static var baseUrl: Swift.String {
+            return Environment.current == .production ? prodBaseUrl : devBaseUrl
+        }
+        
+        static var apiBaseUrl: Swift.String {
+            return baseUrl
+        }
+    }
+    
+    // MARK: - Environment
+    
+    enum Environment {
+        case development
+        case production
+        
+        static var current: Environment {
+            return .development // .production
+        }
+    }
+    
     // MARK: - Colors
     
     struct Color {
@@ -99,12 +125,111 @@ struct App {
         }
     }
     
+    // MARK: - UserDefaults
     
+    struct Key {
+        static let name = "name"
+        static let lastName = "lastName"
+        static let password = "password"
+        static let useTouchOrFaceIdToLogin = "useTouchOrFaceIdToLogin"
+        static let loginCredentialsIdentifier = "loginCredentialsIdentifier"
+    }
     
+    // MARK: - Fields
     
+    struct Field {
+        static let `default` = "error"
+        static let login = "Login"
+        static let password = "Password"
+    }
     
+    // MARK: - Realms & Configs
+    
+    struct RealmConfig {
+        private static let schemaVersion: UInt64 = 1
+        private static let docs = FileManager.default.urls(for: .documentDirectory,
+                                                           in: .userDomainMask).first!
+        
+        private static let migrationBlock: ((Migration, UInt64) -> Void) =
+        { (migration, oldSchemaVersion) in
+            
+            print("Doing migration (\(migration)) the old schema version (\(oldSchemaVersion)")
+        }
+        
+        static var inboxTasksAndRequests: Realm.Configuration {
+            return Realm.Configuration(fileURL: docs.appendingPathComponent("InboxTasksAndRequests.realm"),
+                schemaVersion: schemaVersion,
+                migrationBlock: migrationBlock)
+        }
+        
+        static var outboxTasksAndRequests: Realm.Configuration {
+            return Realm.Configuration(fileURL: docs.appendingPathComponent("OutboxTasksAndRequests.realm"), schemaVersion: schemaVersion, migrationBlock: migrationBlock)
+        }
+        
+        static var notifications: Realm.Configuration {
+            return Realm.Configuration(
+                fileURL: docs.appendingPathComponent("Notifications.realm"),
+                schemaVersion: schemaVersion,
+                migrationBlock: migrationBlock)
+        }
+        
+    }
+    
+    struct Realms {
+        
+        static func inboxTasksAndRequests() throws -> Realm {
+            do {
+                let realm = try Realm(configuration: RealmConfig.inboxTasksAndRequests)
+                return realm
+            } catch {
+                fatalError(
+                    "Failed to initialize realm with configurations - \(RealmConfig.inboxTasksAndRequests)"
+                )
+            }
+        }
+        
+        static func outboxTasksAndRequests() throws -> Realm {
+            do {
+                let realm = try Realm(configuration: RealmConfig.outboxTasksAndRequests)
+                return realm
+            } catch {
+                fatalError(
+                    "Failed to initialize realm with configurations - \(RealmConfig.outboxTasksAndRequests)"
+                )
+            }
+        }
+        
+        static func notifications() throws -> Realm {
+            do {
+                let realm = try Realm(configuration: RealmConfig.notifications)
+                return realm
+            } catch {
+                fatalError(
+                    "Failed to initialize realm with configurations - \(RealmConfig.notifications)"
+                )
+            }
+        }
+        
+    }
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

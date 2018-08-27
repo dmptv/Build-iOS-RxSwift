@@ -50,6 +50,14 @@
 		9D4440E0212D8404007266C9 /* AppFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4440DF212D8404007266C9 /* AppFlow.swift */; };
 		9D4440E3212D8489007266C9 /* AppStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4440E2212D8489007266C9 /* AppStep.swift */; };
 		9D4440E5212D872C007266C9 /* ToDoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4440E4212D872C007266C9 /* ToDoList.swift */; };
+		9D502882213430B70009093E /* Error+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D502881213430B70009093E /* Error+Extentions.swift */; };
+		9D502884213431010009093E /* Response+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D502883213431010009093E /* Response+Extentions.swift */; };
+		9D5028872134367E0009093E /* TaskObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5028862134367E0009093E /* TaskObject.swift */; };
+		9D50288B213437BF0009093E /* NotificationObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D50288A213437BF0009093E /* NotificationObject.swift */; };
+		9D50288D21343B840009093E /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D50288C21343B840009093E /* TextField.swift */; };
+		9D50289021343ECC0009093E /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D50288F21343ECC0009093E /* AuthService.swift */; };
+		9D50289221343FDA0009093E /* Bundle+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D50289121343FDA0009093E /* Bundle+Extentions.swift */; };
+		9D502894213440180009093E /* String+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D502893213440180009093E /* String+Extentions.swift */; };
 		9D76E333212ECAFA001EF37A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76E332212ECAFA001EF37A /* User.swift */; };
 		9DA0D6B8212E989400F3B833 /* LoginFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA0D6B7212E989400F3B833 /* LoginFlow.swift */; };
 		9DA0D6BA212E9E6700F3B833 /* ViewModelBased.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA0D6B9212E9E6700F3B833 /* ViewModelBased.swift */; };
@@ -103,6 +111,14 @@
 		9D4440DF212D8404007266C9 /* AppFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlow.swift; sourceTree = "<group>"; };
 		9D4440E2212D8489007266C9 /* AppStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStep.swift; sourceTree = "<group>"; };
 		9D4440E4212D872C007266C9 /* ToDoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoList.swift; sourceTree = "<group>"; };
+		9D502881213430B70009093E /* Error+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+Extentions.swift"; sourceTree = "<group>"; };
+		9D502883213431010009093E /* Response+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Response+Extentions.swift"; sourceTree = "<group>"; };
+		9D5028862134367E0009093E /* TaskObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskObject.swift; sourceTree = "<group>"; };
+		9D50288A213437BF0009093E /* NotificationObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationObject.swift; sourceTree = "<group>"; };
+		9D50288C21343B840009093E /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
+		9D50288F21343ECC0009093E /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		9D50289121343FDA0009093E /* Bundle+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extentions.swift"; sourceTree = "<group>"; };
+		9D502893213440180009093E /* String+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extentions.swift"; sourceTree = "<group>"; };
 		9D76E332212ECAFA001EF37A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		9DA0D6B7212E989400F3B833 /* LoginFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFlow.swift; sourceTree = "<group>"; };
 		9DA0D6B9212E9E6700F3B833 /* ViewModelBased.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelBased.swift; sourceTree = "<group>"; };
@@ -185,6 +201,7 @@
 			children = (
 				9D1C4E18212FF06C00EADD62 /* GradientView.swift */,
 				9D1C4E1C21300A9D00EADD62 /* ButtonFromRaised.swift */,
+				9D50288C21343B840009093E /* TextField.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -276,9 +293,28 @@
 			path = Flows;
 			sourceTree = "<group>";
 		};
+		9D5028852134366F0009093E /* RealmObjects */ = {
+			isa = PBXGroup;
+			children = (
+				9D5028862134367E0009093E /* TaskObject.swift */,
+				9D50288A213437BF0009093E /* NotificationObject.swift */,
+			);
+			name = RealmObjects;
+			sourceTree = "<group>";
+		};
+		9D50288E21343EB30009093E /* API */ = {
+			isa = PBXGroup;
+			children = (
+				9D50288F21343ECC0009093E /* AuthService.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
 		9D76E32D212EC215001EF37A /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9D50288E21343EB30009093E /* API */,
+				9D5028852134366F0009093E /* RealmObjects */,
 				9D76E332212ECAFA001EF37A /* User.swift */,
 				9D1C4E1A212FF4B700EADD62 /* Constants.swift */,
 			);
@@ -354,6 +390,10 @@
 			children = (
 				9DA0D6C1212EBF5700F3B833 /* UIViewController+Extensions.swift */,
 				9D1C4E1E21300C4600EADD62 /* UIView+Extentions.swift */,
+				9D502881213430B70009093E /* Error+Extentions.swift */,
+				9D502883213431010009093E /* Response+Extentions.swift */,
+				9D50289121343FDA0009093E /* Bundle+Extentions.swift */,
+				9D502893213440180009093E /* String+Extentions.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -603,6 +643,7 @@
 				9D1C4E16212FEEED00EADD62 /* String.swift in Sources */,
 				9D4440E5212D872C007266C9 /* ToDoList.swift in Sources */,
 				9D4440E0212D8404007266C9 /* AppFlow.swift in Sources */,
+				9D5028872134367E0009093E /* TaskObject.swift in Sources */,
 				9D4440DC212D82FC007266C9 /* Stepper.swift in Sources */,
 				9D1C4E0F212FEEED00EADD62 /* InterfaceBuilderSupport.swift in Sources */,
 				9D1C4E0E212FEEED00EADD62 /* CaretString.swift in Sources */,
@@ -612,6 +653,7 @@
 				9D4440DD212D82FC007266C9 /* Coordinator.swift in Sources */,
 				9D4440D8212D82FC007266C9 /* Rx+Pausable.swift in Sources */,
 				9D1C4DEF212FEE8200EADD62 /* LoginView.swift in Sources */,
+				9D502884213431010009093E /* Response+Extentions.swift in Sources */,
 				9DA0D6C2212EBF5700F3B833 /* UIViewController+Extensions.swift in Sources */,
 				9D4440D1212D82FC007266C9 /* Flow.swift in Sources */,
 				9D4440DA212D82FC007266C9 /* HasDisposeBag.swift in Sources */,
@@ -625,7 +667,10 @@
 				9D1C4E07212FEEED00EADD62 /* Next.swift in Sources */,
 				9D1C4E14212FEEED00EADD62 /* FormatSanitizer.swift in Sources */,
 				9D1C4E13212FEEED00EADD62 /* Compiler.swift in Sources */,
+				9D502882213430B70009093E /* Error+Extentions.swift in Sources */,
+				9D50288B213437BF0009093E /* NotificationObject.swift in Sources */,
 				9DA0D6B8212E989400F3B833 /* LoginFlow.swift in Sources */,
+				9D50289221343FDA0009093E /* Bundle+Extentions.swift in Sources */,
 				9D1C4E1B212FF4B700EADD62 /* Constants.swift in Sources */,
 				9D4440DB212D82FC007266C9 /* Synchronizable.swift in Sources */,
 				9D4440D4212D82FC007266C9 /* UIViewController+Presentable.swift in Sources */,
@@ -637,10 +682,13 @@
 				9D1C4E15212FEEED00EADD62 /* NSCharacterSet.swift in Sources */,
 				9D4440D6212D82FC007266C9 /* UIWindow+Rx.swift in Sources */,
 				9D1C4E09212FEEED00EADD62 /* ValueState.swift in Sources */,
+				9D50288D21343B840009093E /* TextField.swift in Sources */,
+				9D502894213440180009093E /* String+Extentions.swift in Sources */,
 				9D1C4E12212FEEED00EADD62 /* CaretStringIterator.swift in Sources */,
 				9D1C4E11212FEEED00EADD62 /* MaskedTextFieldDelegate.swift in Sources */,
 				9DA0D6BE212EBB4800F3B833 /* LoginViewModel.swift in Sources */,
 				9D1C4E1F21300C4600EADD62 /* UIView+Extentions.swift in Sources */,
+				9D50289021343ECC0009093E /* AuthService.swift in Sources */,
 				9D76E333212ECAFA001EF37A /* User.swift in Sources */,
 				9D1C4E1D21300A9D00EADD62 /* ButtonFromRaised.swift in Sources */,
 			);

@@ -13,6 +13,7 @@ import RxCocoa
 
 struct LoginViewModel: ViewModel {
     
+    private var loginProvider = MoyaProvider<AuthService>()
     private var disposeBag = DisposeBag()
     
     var loginErrorMessage = BehaviorRelay<String?>(value: nil)
@@ -21,9 +22,17 @@ struct LoginViewModel: ViewModel {
     // MARK: - Methods
     
     public func login(_ login: String, password: String,
-                      completion: @escaping /*One and only sequence element is produced*/ ((SingleEvent<Response>) -> Void)) {
-        
-        
+                      completion: @escaping ((SingleEvent<Response>) -> Void)) {
+        loginProvider
+            .rx
+            .request(.user(login: login, password: password))
+            .filterSuccessfulStatusCodes()
+            .subscribe { event in
+                printMine(items: "login -> ", event)
+                completion(event)
+            }
+            .disposed(by: disposeBag)
+
     }
         
     
