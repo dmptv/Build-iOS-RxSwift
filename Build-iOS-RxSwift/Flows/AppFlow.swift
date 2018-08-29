@@ -54,8 +54,17 @@ class AppFlow: Flow {
     }
     
     private func navigationToMainMenuScreen () -> NextFlowItems {
+        let mainMenuFlow = MainMenuFlow()
         
-        return NextFlowItems.none
+        // when the first Flow is ready, set its root as the rootViewController of the Window
+        Flows.whenReady(
+        flow1: mainMenuFlow) { nav1 in
+            self.rootWindow.rootViewController = nav1
+        }
+        
+        let stepper = OneStepper(withSingleStep: AppStep.mainMenu)
+        let nexFlowItem = NextFlowItem(nextPresentable: mainMenuFlow, nextStepper: stepper)
+        return NextFlowItems.one(flowItem: nexFlowItem)
     }
 }
 

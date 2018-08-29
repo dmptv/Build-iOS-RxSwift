@@ -14,17 +14,42 @@ import RxCocoa
 struct User: Codable {
     
     var name: String
-    var lastName: String
     var password: String
     
     var isAuthenticated: Bool {
-        return false
+        get {
+//            return false
+            return User._current != nil
+        }
     }
     
-    var updated: BehaviorRelay<User?> {
-        return BehaviorRelay<User?>(value: nil)
+    let updated = BehaviorRelay<String?>(value: nil)
+
+    init(name: String, password: String) {
+        self.name = name
+        self.password = password
     }
-      
+    
+    
+    // MARK: - Codable
+    
+    enum CodingKeys: String, CodingKey {
+        case name
+        case password
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.name = try container.decode(String.self, forKey: CodingKeys.name)
+        self.password = try container.decode(String.self, forKey: CodingKeys.password)
+    }
+    
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(name, forKey: CodingKeys.name.rawValue)
+        aCoder.encode(password, forKey: CodingKeys.password.rawValue)
+    }
+    
      // MARK: - Methods
     
     private static var _current: User?
@@ -33,7 +58,12 @@ struct User: Codable {
             if _current != nil {
                 return _current!
             }
-            _current = User(name: "name", lastName: "lastname", password: "password")
+            
+            let name = UserDefaults.standard.string(forKey: App.Key.name) ?? ""
+            let password = UserDefaults.standard.string(forKey: App.Key.password) ?? ""
+                        
+            _current = User(name: name, password: password)
+            _current?.updated.accept(name)
             
             return _current!
         }
@@ -44,18 +74,16 @@ struct User: Codable {
     
     public func save() {
         UserDefaults.standard.set(name, forKey: App.Key.name)
-        UserDefaults.standard.set(lastName, forKey: App.Key.lastName)
         UserDefaults.standard.set(password, forKey: App.Key.password)
         UserDefaults.standard.synchronize()
         
-        updated.accept(User._current)
+        updated.accept(User._current?.name)
     }
     
     public func logout() {
         User._current = nil
      
         UserDefaults.standard.set(nil, forKey: App.Key.name)
-        UserDefaults.standard.set(nil, forKey: App.Key.lastName)
         UserDefaults.standard.set(nil, forKey: App.Key.password)
         UserDefaults.standard.synchronize()
         

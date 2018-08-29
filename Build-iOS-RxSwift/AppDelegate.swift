@@ -43,12 +43,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // ask the Coordinator to coordinate this Flow with a first Step
         if loggedIn {
-           
+            let stepper = OneStepper(withSingleStep: AppStep.mainMenu)
+            coordinator.coordinate(flow: self.appFlow, withStepper: stepper)
         } else {
-            coordinator.coordinate(
-                flow: self.appFlow,
-                withStepper: OneStepper(withSingleStep: AppStep.login)
-            )
+            let stepper = OneStepper(withSingleStep: AppStep.login)
+            coordinator.coordinate(flow: self.appFlow, withStepper: stepper)
         }
         
         IQKeyboardManager.shared.enable = true

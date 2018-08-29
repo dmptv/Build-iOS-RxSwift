@@ -198,9 +198,7 @@ class LoginViewController: UIViewController, ViewModelBased, Stepper {
                 }
         })
     }
-    
-    //FIXME: - Validate if fields are not empty
-    
+        
     private func login(_ login: String, password: String) {
         self.loginView.loginButton?.buttonState = .loading
         self.viewModel.login(login,
@@ -208,6 +206,16 @@ class LoginViewController: UIViewController, ViewModelBased, Stepper {
                              completion:
             { [weak self] (response: SingleEvent<Response>) in
                 self?.loginView.loginButton?.buttonState = .normal
+                
+                // fake validation
+                if !login.isEmpty, !password.isEmpty {
+                    let saveCredentials = self?.loginView.useTouchIDSwitch.isOn ?? false
+                    self?.onLogin(json: nil, saveCredentials: saveCredentials)
+                    return
+                } else {
+                    self?.showToast("Login, password are empty", position: .top)
+                    return
+                }
                 
                 switch response {
                 case .success(let json):
@@ -219,19 +227,31 @@ class LoginViewController: UIViewController, ViewModelBased, Stepper {
         })
     }
     
-    private func onLogin(json: Response, saveCredentials: Bool = true) {
-        saveUser(json)
+    fileprivate func handleResponse(response: SingleEvent<Response>) {
+        
+    }
+    
+    private func onLogin(json: Response?, saveCredentials: Bool = true) {
+        if let json = json {
+            saveUser(json)
+        }
         
         if saveCredentials {
-            let login = self.loginView.phoneField?.text ?? ""
+            let name = self.loginView.phoneField?.text ?? ""
             let password = self.loginView.passwordField?.text ?? ""
             
             let keychain = Keychain(service: App.Key.loginCredentialsIdentifier)
-            keychain[login] = password
-            
+            // login will be a key
+            keychain[name] = password
+
+            User.current.name = name
+            User.current.password = password
+            User.current.save()
         }
         
-        if User.current.isAuthenticated {
+        // fake isAuthenticated
+        if !User.current.isAuthenticated {
+            print("---> isAuthenticated ")
             step.accept(AppStep.mainMenu)
         }
     }
@@ -252,7 +272,6 @@ class LoginViewController: UIViewController, ViewModelBased, Stepper {
     private func saveUser(_ json: Response) {
         if let user = try? JSONDecoder().decode(User.self, from: json.data) {
             User.current.name = user.name
-            User.current.lastName = user.lastName
             User.current.password = user.password
             User.current.save()
         }

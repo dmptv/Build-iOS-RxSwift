@@ -28,7 +28,6 @@ struct LoginViewModel: ViewModel {
             .request(.user(login: login, password: password))
             .filterSuccessfulStatusCodes()
             .subscribe { event in
-                printMine(items: "login -> ", event)
                 completion(event)
             }
             .disposed(by: disposeBag)

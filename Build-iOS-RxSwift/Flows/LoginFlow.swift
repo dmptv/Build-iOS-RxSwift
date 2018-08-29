@@ -30,7 +30,7 @@ class LoginFlow: Flow {
         case .unauthorized:
             return navigateToLoginScreen(isUnauthorized: true)
         default:
-            return NextFlowItems.none
+            return NextFlowItems.stepNotHandled
         }
     }
     
@@ -38,15 +38,10 @@ class LoginFlow: Flow {
         let viewController = LoginViewController.instantiate(withViewModel: LoginViewModel())
         viewController.isUnauthorized = isUnauthorized
         self.rootViewController.pushViewController(viewController, animated: true)
-        return NextFlowItems.one(
-            flowItem: NextFlowItem(
-                nextPresentable: viewController,
-                nextStepper: viewController)
-        )
+        let newFlowItem = NextFlowItem(nextPresentable: viewController, nextStepper: viewController)
+        return NextFlowItems.one(flowItem: newFlowItem)
     }
-   
-    
-
+ 
 }
 
 

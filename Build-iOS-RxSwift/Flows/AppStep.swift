@@ -21,6 +21,21 @@ enum AppStep: Step {
     // MARK: - Main tab bar
     case mainMenu
     
+    case firstVC
+    case secondVC
+    case thirdVC
+    case fourthVC
+    case firstBoard
+
     
+    // MARK: - Notifications
+    
+    case notifications
+    case notificationsDone
+    
+    // MARK: - Global Search 
+    case newsSearch
+    case suggestionSearch
+    case questionSearch
     
 }

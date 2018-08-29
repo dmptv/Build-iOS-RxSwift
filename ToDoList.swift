@@ -17,6 +17,8 @@ import Foundation
  
  1 - KeychainAccess: https://github.com/kishikawakatsumi/KeychainAccess
  2 - Localization - read how to make it
+ 2 - Implement OAUTH auth
+ 2 - Kingfisher - https://github.com/onevcat/Kingfisher/wiki/Cheat-Sheet
  3 - SwiftLint https://github.com/realm/SwiftLint
  4 - Soccet Chat tutorial - https://www.appcoda.com/socket-io-chat-app/
  5 - Fastline tutorial setup - https://www.raywenderlich.com/778-fastlane-tutorial-getting-started

@@ -129,7 +129,6 @@ struct App {
     
     struct Key {
         static let name = "name"
-        static let lastName = "lastName"
         static let password = "password"
         static let useTouchOrFaceIdToLogin = "useTouchOrFaceIdToLogin"
         static let loginCredentialsIdentifier = "loginCredentialsIdentifier"
