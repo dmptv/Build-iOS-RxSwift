@@ -13,6 +13,7 @@ import RxCocoa
 
 struct FirstVCViewModel: ViewModel {
 
+     private(set) var newsViewModel = NewsViewModel()
     
 
 }
