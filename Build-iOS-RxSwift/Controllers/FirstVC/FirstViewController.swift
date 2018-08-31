@@ -10,12 +10,13 @@ import UIKit
 import Material
 import Moya
 import PopupDialog
-import RxSwift
 import SnapKit
+import Kingfisher
+import RxCocoa
+import RxSwift
 
 class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
 
-    
     private(set) var viewModel: FirstVCViewModel
     private let disposeBag = DisposeBag()
     
@@ -26,7 +27,6 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
 
         
         setupFabMenu()
-
     }
 
     private func setupFabMenu() {
@@ -40,8 +40,13 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+   
         setupUI()
+        
+        viewModel.tagsViewModel.geiPhotos(search: "Party", page: 1) { error in
+            
+            
+        }
     }
     
     private func setupUI() {

@@ -45,7 +45,7 @@ extension AuthService: AuthorizedTargetType {
     }
     
     var headers: [String: String]? {
-        return nil //["Accept": "application/vnd.github.v3+json"]
+        return nil 
     }
     
     var needsAuth: Bool {
@@ -62,7 +62,7 @@ protocol AuthorizedTargetType: TargetType {
 }
 
 extension AuthorizedTargetType {
-    var baseURL: URL { return URL(string: App.String.apiBaseUrl)! }
+    var baseURL: URL { return URL(string: App.StringStruct.githubBaseUrl)! }
 }
 
 

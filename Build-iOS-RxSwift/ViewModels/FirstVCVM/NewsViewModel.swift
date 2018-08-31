@@ -7,25 +7,56 @@
 //
 
 import Foundation
-import IGListKit
 import Moya
 import RxSwift
 import RxCocoa
+import RealmSwift
 
-class NewsViewModel: NSObject {
+
+class TagsViewModel: NSObject, ViewModel {
+    
+    private(set) var loading = BehaviorRelay<Bool>(value: false)
+    
+    private let disposeBag = DisposeBag()
+    
+    private let provider = MoyaProvider<FetchPhotosServise>()
+    
+    // MARK: - Methods
+    
+    public func geiPhotos(search: String, page: Int, completion: @escaping ((Error?) -> Void)) {
+        
+        loading.accept(true)
+        
+        provider.rx
+            .request(.photos(searchText: search, page: page))
+            .filterSuccessfulStatusCodes()
+            .subscribe(onSuccess: { response in
+                self.loading.accept(false)
+                
+                print(response.data)
+                
+                
+            })
+            .disposed(by: disposeBag)
+    }
 
 }
 
-extension NewsViewModel: ListDiffable {
-    
-    func diffIdentifier() -> NSObjectProtocol {
-        return self
-    }
-    
-    func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
-        if let object = object as? NewsViewModel {
-            return self == object
-        }
-        return false
-    }
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

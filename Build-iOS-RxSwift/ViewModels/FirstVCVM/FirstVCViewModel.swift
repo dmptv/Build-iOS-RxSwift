@@ -10,10 +10,15 @@ import Foundation
 import Moya
 import RxSwift
 import RxCocoa
+import RealmSwift
 
-struct FirstVCViewModel: ViewModel {
-
-     private(set) var newsViewModel = NewsViewModel()
+class FirstVCViewModel: NSObject, ViewModel {
     
+    private let disposeBag = DisposeBag()
 
+    private(set) var tagsViewModel = TagsViewModel()
+    
+    // FIXME: - Photos model, map photos
+    
+    
 }

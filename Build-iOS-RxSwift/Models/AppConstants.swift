@@ -14,17 +14,23 @@ struct App {
     
     // MARK: - Strings
     
-    struct String {
+    struct StringStruct {
         private static let devBaseUrl = "https://api.github.com"
         private static let prodBaseUrl = "https://api.github.com"
         
-        static var baseUrl: Swift.String {
+        private static var apiGithubBaseUrl: Swift.String {
             return Environment.current == .production ? prodBaseUrl : devBaseUrl
         }
         
-        static var apiBaseUrl: Swift.String {
-            return baseUrl
+        static var githubBaseUrl: Swift.String {
+            return apiGithubBaseUrl
         }
+        
+        static var flickrBaseURL: String {
+            return "https://api.flickr.com"
+        }
+        
+        static let APIKey = "2d2e1b0d53275fd4ae2158e0c0937472"
     }
     
     // MARK: - Environment
