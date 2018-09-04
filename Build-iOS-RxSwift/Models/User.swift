@@ -40,7 +40,6 @@ struct User: Codable {
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        
         self.name = try container.decode(String.self, forKey: CodingKeys.name)
         self.password = try container.decode(String.self, forKey: CodingKeys.password)
     }
@@ -92,30 +91,7 @@ struct User: Codable {
     
     private func removeUserRelatedData() {
         DispatchQueue.global().async {
-            do {
-                // tasks and requests
-                var tasksAndRequestsRealms = [Realm]()
-                
-                let inboxTasksRealm = try App.Realms.inboxTasksAndRequests()
-                tasksAndRequestsRealms.append(inboxTasksRealm)
-                
-                let outboxTasksRealm = try App.Realms.outboxTasksAndRequests()
-                tasksAndRequestsRealms.append(outboxTasksRealm)
-                
-                for realm in tasksAndRequestsRealms {
-                    realm.beginWrite()
-                    realm.delete(realm.objects(TaskObject.self))
-                    try realm.commitWrite()
-                }
-                
-                // notifications
-                let notifictationsRealm = try App.Realms.notifications()
-                notifictationsRealm.beginWrite()
-                notifictationsRealm.delete(notifictationsRealm.objects(NotificationObject.self))
-                try notifictationsRealm.commitWrite()
-            } catch {
-                print("Failed to access the Realm database")
-            }
+           
         }
     }
     

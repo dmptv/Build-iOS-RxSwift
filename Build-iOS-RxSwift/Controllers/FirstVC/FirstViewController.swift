@@ -43,10 +43,20 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
    
         setupUI()
         
-        viewModel.tagsViewModel.geiPhotos(search: "Party", page: 1) { error in
+        viewModel.geiPhotos(search: "Party", page: 1)
+        viewModel.photo.filter { $0.count > 0 }
+            .subscribe(onNext: { arr in
             
+            printMine(items: "----->>>>> ")
+            printMine(items: arr)
+                
+                //FIXME: - make collection view RxCocoa
             
-        }
+        }, onError: { err in
+            printMine(items: err.localizedDescription)
+            
+        }).disposed(by: disposeBag)
+        
     }
     
     private func setupUI() {

@@ -31,7 +31,6 @@
 		9D1C4E1D21300A9D00EADD62 /* ButtonFromRaised.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1C4E1C21300A9D00EADD62 /* ButtonFromRaised.swift */; };
 		9D1C4E1F21300C4600EADD62 /* UIView+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1C4E1E21300C4600EADD62 /* UIView+Extentions.swift */; };
 		9D32C1EA21396ACE00CA056A /* FetchPhotosServise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D32C1E921396ACE00CA056A /* FetchPhotosServise.swift */; };
-		9D3B6FD02137BCC900A76CE9 /* NewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3B6FCF2137BCC900A76CE9 /* NewsViewModel.swift */; };
 		9D4440B1212D4720007266C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4440B0212D4720007266C9 /* AppDelegate.swift */; };
 		9D4440B3212D4720007266C9 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4440B2212D4720007266C9 /* LoginViewController.swift */; };
 		9D4440B8212D4721007266C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D4440B7212D4721007266C9 /* Assets.xcassets */; };
@@ -54,8 +53,7 @@
 		9D4440E5212D872C007266C9 /* ToDoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4440E4212D872C007266C9 /* ToDoList.swift */; };
 		9D502882213430B70009093E /* Error+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D502881213430B70009093E /* Error+Extentions.swift */; };
 		9D502884213431010009093E /* Response+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D502883213431010009093E /* Response+Extentions.swift */; };
-		9D5028872134367E0009093E /* TaskObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5028862134367E0009093E /* TaskObject.swift */; };
-		9D50288B213437BF0009093E /* NotificationObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D50288A213437BF0009093E /* NotificationObject.swift */; };
+		9D5028872134367E0009093E /* FlickrPhotoObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5028862134367E0009093E /* FlickrPhotoObject.swift */; };
 		9D50288D21343B840009093E /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D50288C21343B840009093E /* TextField.swift */; };
 		9D50289021343ECC0009093E /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D50288F21343ECC0009093E /* AuthService.swift */; };
 		9D50289221343FDA0009093E /* Bundle+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D50289121343FDA0009093E /* Bundle+Extentions.swift */; };
@@ -75,6 +73,12 @@
 		9DA1BC94213653C8009168B6 /* FirstVCFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA1BC93213653C8009168B6 /* FirstVCFlow.swift */; };
 		9DA1BC96213654F4009168B6 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA1BC95213654F4009168B6 /* FirstViewController.swift */; };
 		9DA1BC9921365651009168B6 /* FirstVCViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA1BC9821365651009168B6 /* FirstVCViewModel.swift */; };
+		9DFA23A1213EC568001A61E1 /* FlickrPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA23A0213EC568001A61E1 /* FlickrPhoto.swift */; };
+		9DFA23A3213EC74C001A61E1 /* Dispatch+Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA23A2213EC74C001A61E1 /* Dispatch+Globals.swift */; };
+		9DFA23A5213EDD66001A61E1 /* KeyedDecodingContainer+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA23A4213EDD66001A61E1 /* KeyedDecodingContainer+Extentions.swift */; };
+		9DFA23A7213EFD56001A61E1 /* Persistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA23A6213EFD56001A61E1 /* Persistable.swift */; };
+		9DFA23A9213F0250001A61E1 /* FlickrPhotoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA23A8213F0250001A61E1 /* FlickrPhotoResponse.swift */; };
+		9DFA23AB213F060F001A61E1 /* FlickrPhotoResponseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA23AA213F060F001A61E1 /* FlickrPhotoResponseObject.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -102,7 +106,6 @@
 		9D1C4E1C21300A9D00EADD62 /* ButtonFromRaised.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonFromRaised.swift; sourceTree = "<group>"; };
 		9D1C4E1E21300C4600EADD62 /* UIView+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extentions.swift"; sourceTree = "<group>"; };
 		9D32C1E921396ACE00CA056A /* FetchPhotosServise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchPhotosServise.swift; sourceTree = "<group>"; };
-		9D3B6FCF2137BCC900A76CE9 /* NewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewModel.swift; sourceTree = "<group>"; };
 		9D4440AD212D4720007266C9 /* Build-iOS-RxSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Build-iOS-RxSwift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D4440B0212D4720007266C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9D4440B2212D4720007266C9 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -127,8 +130,7 @@
 		9D4440E4212D872C007266C9 /* ToDoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoList.swift; sourceTree = "<group>"; };
 		9D502881213430B70009093E /* Error+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+Extentions.swift"; sourceTree = "<group>"; };
 		9D502883213431010009093E /* Response+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Response+Extentions.swift"; sourceTree = "<group>"; };
-		9D5028862134367E0009093E /* TaskObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskObject.swift; sourceTree = "<group>"; };
-		9D50288A213437BF0009093E /* NotificationObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationObject.swift; sourceTree = "<group>"; };
+		9D5028862134367E0009093E /* FlickrPhotoObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrPhotoObject.swift; sourceTree = "<group>"; };
 		9D50288C21343B840009093E /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		9D50288F21343ECC0009093E /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		9D50289121343FDA0009093E /* Bundle+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extentions.swift"; sourceTree = "<group>"; };
@@ -148,6 +150,12 @@
 		9DA1BC93213653C8009168B6 /* FirstVCFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstVCFlow.swift; sourceTree = "<group>"; };
 		9DA1BC95213654F4009168B6 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		9DA1BC9821365651009168B6 /* FirstVCViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstVCViewModel.swift; sourceTree = "<group>"; };
+		9DFA23A0213EC568001A61E1 /* FlickrPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrPhoto.swift; sourceTree = "<group>"; };
+		9DFA23A2213EC74C001A61E1 /* Dispatch+Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dispatch+Globals.swift"; sourceTree = "<group>"; };
+		9DFA23A4213EDD66001A61E1 /* KeyedDecodingContainer+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyedDecodingContainer+Extentions.swift"; sourceTree = "<group>"; };
+		9DFA23A6213EFD56001A61E1 /* Persistable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistable.swift; sourceTree = "<group>"; };
+		9DFA23A8213F0250001A61E1 /* FlickrPhotoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrPhotoResponse.swift; sourceTree = "<group>"; };
+		9DFA23AA213F060F001A61E1 /* FlickrPhotoResponseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrPhotoResponseObject.swift; sourceTree = "<group>"; };
 		C37DAECE6185AA95BBA4AAA2 /* Pods-Build-iOS-RxSwift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Build-iOS-RxSwift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Build-iOS-RxSwift/Pods-Build-iOS-RxSwift.debug.xcconfig"; sourceTree = "<group>"; };
 		DBD14CF151ACDE9D8EE57014 /* Pods_Build_iOS_RxSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Build_iOS_RxSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -323,8 +331,8 @@
 		9D5028852134366F0009093E /* RealmObjects */ = {
 			isa = PBXGroup;
 			children = (
-				9D5028862134367E0009093E /* TaskObject.swift */,
-				9D50288A213437BF0009093E /* NotificationObject.swift */,
+				9D5028862134367E0009093E /* FlickrPhotoObject.swift */,
+				9DFA23AA213F060F001A61E1 /* FlickrPhotoResponseObject.swift */,
 			);
 			name = RealmObjects;
 			sourceTree = "<group>";
@@ -344,6 +352,8 @@
 				9D50288E21343EB30009093E /* API */,
 				9D5028852134366F0009093E /* RealmObjects */,
 				9D76E332212ECAFA001EF37A /* User.swift */,
+				9DFA23A0213EC568001A61E1 /* FlickrPhoto.swift */,
+				9DFA23A8213F0250001A61E1 /* FlickrPhotoResponse.swift */,
 				9D1C4E1A212FF4B700EADD62 /* AppConstants.swift */,
 			);
 			path = Models;
@@ -409,6 +419,7 @@
 			isa = PBXGroup;
 			children = (
 				9DA0D6B9212E9E6700F3B833 /* ViewModelBased.swift */,
+				9DFA23A6213EFD56001A61E1 /* Persistable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -429,7 +440,7 @@
 			isa = PBXGroup;
 			children = (
 				9DA0D6C0212EBB7200F3B833 /* LoginVM */,
-				9DA1BC9A2136566B009168B6 /* FirstVCVM */,
+				9DA1BC9A2136566B009168B6 /* FirstVCViewModel */,
 				9D9898DE2136AFF10042D8A7 /* NotificationsVM */,
 			);
 			path = ViewModels;
@@ -453,6 +464,8 @@
 				9D50289121343FDA0009093E /* Bundle+Extentions.swift */,
 				9D502893213440180009093E /* String+Extentions.swift */,
 				9DA1BC9121364797009168B6 /* ImageDownloader+Extentions.swift */,
+				9DFA23A2213EC74C001A61E1 /* Dispatch+Globals.swift */,
+				9DFA23A4213EDD66001A61E1 /* KeyedDecodingContainer+Extentions.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -481,13 +494,12 @@
 			path = FirstVC;
 			sourceTree = "<group>";
 		};
-		9DA1BC9A2136566B009168B6 /* FirstVCVM */ = {
+		9DA1BC9A2136566B009168B6 /* FirstVCViewModel */ = {
 			isa = PBXGroup;
 			children = (
 				9DA1BC9821365651009168B6 /* FirstVCViewModel.swift */,
-				9D3B6FCF2137BCC900A76CE9 /* NewsViewModel.swift */,
 			);
-			path = FirstVCVM;
+			path = FirstVCViewModel;
 			sourceTree = "<group>";
 		};
 		E3B588DD5C666D33B5BDDD5C /* Frameworks */ = {
@@ -717,14 +729,16 @@
 				9D1C4E0C212FEEED00EADD62 /* OptionalValueState.swift in Sources */,
 				9D4440D9212D82FC007266C9 /* Step.swift in Sources */,
 				9D1C4E16212FEEED00EADD62 /* String.swift in Sources */,
+				9DFA23A9213F0250001A61E1 /* FlickrPhotoResponse.swift in Sources */,
 				9D9898DA2136AFA50042D8A7 /* NotificationsViewController.swift in Sources */,
 				9D4440E5212D872C007266C9 /* ToDoList.swift in Sources */,
 				9D4440E0212D8404007266C9 /* AppFlow.swift in Sources */,
-				9D5028872134367E0009093E /* TaskObject.swift in Sources */,
+				9D5028872134367E0009093E /* FlickrPhotoObject.swift in Sources */,
 				9D4440DC212D82FC007266C9 /* Stepper.swift in Sources */,
 				9DA1BC902136453C009168B6 /* SizedButton.swift in Sources */,
 				9D1C4E0F212FEEED00EADD62 /* InterfaceBuilderSupport.swift in Sources */,
 				9D1C4E0E212FEEED00EADD62 /* CaretString.swift in Sources */,
+				9DFA23A1213EC568001A61E1 /* FlickrPhoto.swift in Sources */,
 				9D1C4E06212FEEED00EADD62 /* Mask.swift in Sources */,
 				9D1C4E08212FEEED00EADD62 /* State.swift in Sources */,
 				9D1C4E10212FEEED00EADD62 /* PolyMaskTextFieldDelegate.swift in Sources */,
@@ -733,12 +747,13 @@
 				9D4440D8212D82FC007266C9 /* Rx+Pausable.swift in Sources */,
 				9DA1BC9921365651009168B6 /* FirstVCViewModel.swift in Sources */,
 				9DA1BC96213654F4009168B6 /* FirstViewController.swift in Sources */,
+				9DFA23A3213EC74C001A61E1 /* Dispatch+Globals.swift in Sources */,
 				9D1C4DEF212FEE8200EADD62 /* LoginView.swift in Sources */,
 				9D502884213431010009093E /* Response+Extentions.swift in Sources */,
 				9DA0D6C2212EBF5700F3B833 /* UIViewController+Extensions.swift in Sources */,
 				9D4440D1212D82FC007266C9 /* Flow.swift in Sources */,
-				9D3B6FD02137BCC900A76CE9 /* NewsViewModel.swift in Sources */,
 				9D32C1EA21396ACE00CA056A /* FetchPhotosServise.swift in Sources */,
+				9DFA23A7213EFD56001A61E1 /* Persistable.swift in Sources */,
 				9D4440DA212D82FC007266C9 /* HasDisposeBag.swift in Sources */,
 				9D502899213508F60009093E /* AppNavbarController.swift in Sources */,
 				9D1C4E0D212FEEED00EADD62 /* FreeState.swift in Sources */,
@@ -753,14 +768,15 @@
 				9D1C4E14212FEEED00EADD62 /* FormatSanitizer.swift in Sources */,
 				9D1C4E13212FEEED00EADD62 /* Compiler.swift in Sources */,
 				9D502882213430B70009093E /* Error+Extentions.swift in Sources */,
-				9D50288B213437BF0009093E /* NotificationObject.swift in Sources */,
 				9DA0D6B8212E989400F3B833 /* LoginFlow.swift in Sources */,
 				9D50289221343FDA0009093E /* Bundle+Extentions.swift in Sources */,
 				9D1C4E1B212FF4B700EADD62 /* AppConstants.swift in Sources */,
+				9DFA23A5213EDD66001A61E1 /* KeyedDecodingContainer+Extentions.swift in Sources */,
 				9D4440DB212D82FC007266C9 /* Synchronizable.swift in Sources */,
 				9D4440D4212D82FC007266C9 /* UIViewController+Presentable.swift in Sources */,
 				9D50289B21350A2F0009093E /* AppTabBarController.swift in Sources */,
 				9D1C4E0B212FEEED00EADD62 /* FixedState.swift in Sources */,
+				9DFA23AB213F060F001A61E1 /* FlickrPhotoResponseObject.swift in Sources */,
 				9DA1BC94213653C8009168B6 /* FirstVCFlow.swift in Sources */,
 				9D4440E3212D8489007266C9 /* AppStep.swift in Sources */,
 				9D1C4E19212FF06C00EADD62 /* GradientView.swift in Sources */,
@@ -915,8 +931,9 @@
 			baseConfigurationReference = C37DAECE6185AA95BBA4AAA2 /* Pods-Build-iOS-RxSwift.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = AK24CEK6KH;
+				DEVELOPMENT_TEAM = TV52855HY8;
 				INFOPLIST_FILE = "Build-iOS-RxSwift/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -924,6 +941,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kanat.Build-iOS-RxSwift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -934,8 +952,9 @@
 			baseConfigurationReference = 27DA80C521AC42E7862ABBAE /* Pods-Build-iOS-RxSwift.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = AK24CEK6KH;
+				DEVELOPMENT_TEAM = TV52855HY8;
 				INFOPLIST_FILE = "Build-iOS-RxSwift/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -943,6 +962,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kanat.Build-iOS-RxSwift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

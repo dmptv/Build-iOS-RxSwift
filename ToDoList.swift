@@ -9,11 +9,12 @@
 import Foundation
 
 /*
- done - Input-mask-iOS, International phone numbers, Local phone numbers, Visa card numbers, Names, Text, Dates : https://github.com/RedMadRobot/input-mask-ios
- done - DateToolSwift - Dates and times made easy: https://github.com/MatthewYork/DateTools
- done - BiometricAuthentication: https://github.com/rushisangani/BiometricAuthentication
- done - Material: https://github.com/CosmicMind/Material
- done - NVActivityIndicatorView, collection of awesome loading animations: https://github.com/ninjaprox/NVActivityIndicatorView
+ Input-mask-iOS, International phone numbers, Local phone numbers, Visa card numbers, Names, Text, Dates: - https://github.com/RedMadRobot/input-mask-ios
+ DateToolSwift - Dates and times made easy: https://github.com/MatthewYork/DateTools
+ BiometricAuthentication: - https://github.com/rushisangani/BiometricAuthentication
+ Material: - https://github.com/CosmicMind/Material
+ NVActivityIndicatorView, collection of awesome loading animations: - https://github.com/ninjaprox/NVActivityIndicatorView
+ RxMoya: - https://github.com/Moya/Moya/blob/master/docs/RxSwift.md
  
  1 - KeychainAccess: https://github.com/kishikawakatsumi/KeychainAccess
  2 - Localization - read how to make it
@@ -29,3 +30,13 @@ import Foundation
  
  
 */
+
+
+
+
+
+
+
+
+
+

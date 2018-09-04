@@ -9,16 +9,33 @@
 import Foundation
 import RealmSwift
 
-class TaskObject: Object {
+class FlickrPhotoObject: Object {
     @objc dynamic var id: String = ""
-    @objc dynamic var topic: String = ""
-    @objc dynamic var label: String = ""
-    let attachments = List<String>()
-    
+    @objc dynamic var farm: Int = -1
+    @objc dynamic var secret: String = ""
+    @objc dynamic var server: String = ""
+    @objc dynamic var title: String = ""
+
     override static func primaryKey() -> String? {
-        return "id"
+        return "photoId"
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
