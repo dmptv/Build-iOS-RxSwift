@@ -72,6 +72,8 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
         super.viewDidLoad()
         view.backgroundColor = .white
         
+        //FIXME: - size for items, header items - fullfill
+        
         viewModel.geiPhotos(search: "NY", page: 1)
    
         setupUI()
@@ -130,6 +132,8 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
             
             return header
         }, canMoveItemAtIndexPath: { _, _ in true })
+        
+        collectionView.rx.setDelegate(self).disposed(by: disposeBag)
     }
     
     private func setupRefreshControl() {
@@ -172,6 +176,16 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
     func fabMenuDidClose(fabMenu: FABMenu) { }
     
 }
+
+extension FirstViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        return CGSize(width: 200, height: 100)
+    }
+    
+}
+
 
 class Header: UICollectionReusableView {
     var titleLabel: UILabel = UILabel()
