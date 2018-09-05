@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import RxDataSources
 
-struct FlickrPhoto: Decodable {
+struct FlickrPhoto: Decodable, Equatable {
     
     let id: String
     let farm: Int
@@ -16,6 +17,10 @@ struct FlickrPhoto: Decodable {
     let server: String
     let title: String
     
+    // Equatable
+    static func == (lhs: FlickrPhoto, rhs: FlickrPhoto) -> Bool {
+        return lhs.id == rhs.id
+    }
     
     // MARK: - Decodable
 
@@ -80,10 +85,12 @@ struct FlickrPhoto: Decodable {
 //    }
 //}
 
-
-
-
-
+extension FlickrPhoto: IdentifiableType {
+    var identity: Identity {
+        return self.id
+    }
+    typealias Identity = String
+}
 
 
 

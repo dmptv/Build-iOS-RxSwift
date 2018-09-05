@@ -14,17 +14,48 @@ import SnapKit
 import Kingfisher
 import RxCocoa
 import RxSwift
+import RxDataSources
+
+
+struct SectionOfCustomData {
+    let title: String
+    var items: [FlickrPhoto]
+}
+
+extension SectionOfCustomData: SectionModelType {
+    typealias Item = FlickrPhoto
+    
+    init(original: SectionOfCustomData, items: [FlickrPhoto]) {
+        self = original
+        self.items = items
+    }
+}
+
+extension SectionOfCustomData: AnimatableSectionModelType {
+    typealias Identity = String
+
+    var identity: String {
+        return title
+    }
+}
 
 class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
 
     private(set) var viewModel: FirstVCViewModel
     private let disposeBag = DisposeBag()
     
+    var collectionView: UICollectionView!
+    
+    var data = BehaviorRelay<[SectionOfCustomData]>(value: [
+        SectionOfCustomData(title: "", items: [])
+        ])
+    
+    var dataSource: RxCollectionViewSectionedAnimatedDataSource<SectionOfCustomData>?
+    
     init(viewModel: FirstVCViewModel) {
         self.viewModel = viewModel
       
         super.init(nibName: nil, bundle: nil)
-
         
         setupFabMenu()
     }
@@ -32,7 +63,6 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
     private func setupFabMenu() {
         
     }
-
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -40,32 +70,66 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
+        
+        viewModel.geiPhotos(search: "NY", page: 1)
    
         setupUI()
         
-        viewModel.geiPhotos(search: "Party", page: 1)
-        viewModel.photo.filter { $0.count > 0 }
-            .subscribe(onNext: { arr in
-            
-            printMine(items: "----->>>>> ")
-            printMine(items: arr)
-                
-                //FIXME: - make collection view RxCocoa
-            
-        }, onError: { err in
-            printMine(items: err.localizedDescription)
-            
-        }).disposed(by: disposeBag)
+        data.asDriver()
+            .drive(collectionView.rx.items(dataSource: dataSource!))
+            .disposed(by: disposeBag)
         
+        viewModel.photo.asObservable()
+            .filter { $0.count > 0 }
+            .subscribe({[weak self] event in
+                self?.data.accept([
+                    SectionOfCustomData(title: "Section: 0", items: event.element ?? [])
+                    ])
+            })
+            .disposed(by: disposeBag)
     }
     
     private func setupUI() {
         setupCollectionView()
         setupRefreshControl()
+        
+        setupDataSource()
     }
     
     private func setupCollectionView() {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .clear
         
+        view.addSubview(collectionView)
+        collectionView.snp.makeConstraints {
+            $0.top.left.right.bottom.equalToSuperview()
+        }
+        
+        collectionView.register(Cell.self, forCellWithReuseIdentifier: "Cell")
+        collectionView.register(Header.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "Header")
+    }
+    
+    private func setupDataSource() {
+        dataSource = RxCollectionViewSectionedAnimatedDataSource<SectionOfCustomData>(configureCell: {
+            _, cv, indexPath, item in
+            
+            let cell = cv.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! Cell
+            cell.titleLabel.text = item.title
+            cell.titleLabel.backgroundColor = .yellow
+            return cell
+            
+        }, configureSupplementaryView: { _, cv, kind, indP in
+            
+            let header = cv.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Header", for: indP) as! Header
+            header.titleLabel.text = "Section \(indP.section)"
+            
+            header.titleLabel.backgroundColor = .cyan
+            
+            return header
+        }, canMoveItemAtIndexPath: { _, _ in true })
     }
     
     private func setupRefreshControl() {
@@ -109,7 +173,49 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
     
 }
 
+class Header: UICollectionReusableView {
+    var titleLabel: UILabel = UILabel()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        setupViews()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupViews() {
+        addSubview(titleLabel)
+        
+        titleLabel.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+    }
+}
 
+class Cell: UICollectionViewCell {
+    var titleLabel: UILabel = UILabel()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        setupViews()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupViews() {
+        addSubview(titleLabel)
+        
+        titleLabel.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+    }
+}
 
 
 
