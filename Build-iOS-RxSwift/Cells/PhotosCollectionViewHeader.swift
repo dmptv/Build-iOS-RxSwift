@@ -22,6 +22,10 @@ class PhotosCollectionViewHeader: UICollectionReusableView, ReuseIdentifierProto
     
     private func setupViews() {
         addSubview(titleLabel)
+        titleLabel.backgroundColor = App.Color.grayBackground
+        titleLabel.textAlignment = .center
+        titleLabel.textColor = App.Color.darkSlateBlue
+        titleLabel.font = App.Font.bodyAlts
         
         titleLabel.snp.makeConstraints {
             $0.edges.equalToSuperview()

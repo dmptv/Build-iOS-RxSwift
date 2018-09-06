@@ -49,7 +49,7 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //FIXME: - Activity spinner as Viper, but in Rx way.(look to EmployeesView swift file)
+    //FIXME: - Activity spinner as Viper, but in Rx way.(look to EmployeesView swift file), Infinite load
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,7 +58,19 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
         viewModel.geiPhotos(search: "NY", page: 1)
    
         setupUI()
+        bindRx()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
+        if let tabVC = parent as? AppTabBarController {
+            tabVC.didTapTab = {_ in }
+        }
+        
+    }
+    
+    private func bindRx() {
         data.asDriver()
             .drive(collectionView.rx.items(dataSource: dataSource!))
             .disposed(by: disposeBag)
@@ -83,6 +95,7 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
     private func setupCollectionView() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
+        layout.sectionHeadersPinToVisibleBounds = true
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
         
@@ -95,6 +108,11 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
         collectionView.register(PhotosCollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: PhotosCollectionViewHeader.defaultReuseIdentifier)
     }
     
+    private func setupRefreshControl() {
+        
+    }
+    
+    //MARK: - RxDataSources
     private func setupDataSource() {
         dataSource = RxCollectionViewSectionedAnimatedDataSource<SectionOfCustomData>(configureCell: {
             _, cv, indexPath, item in
@@ -103,11 +121,9 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
             
         }, configureSupplementaryView: { item, cv, kind, indexPath in
             let header = cv.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: PhotosCollectionViewHeader.defaultReuseIdentifier, for: indexPath) as! PhotosCollectionViewHeader
-            // invisible now - need size
-            header.titleLabel.text = "Section \(indexPath.section)"
+            header.titleLabel.text = "New York"
             return header
-        },
-           canMoveItemAtIndexPath: { _, _ in true })
+        }, canMoveItemAtIndexPath: { _, _ in true })
         
         collectionView.rx.setDelegate(self).disposed(by: disposeBag)
     }
@@ -126,18 +142,6 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
         return cell
     }
     
-    private func setupRefreshControl() {
-        
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        if let tabVC = parent as? AppTabBarController {
-            tabVC.didTapTab = {_ in }
-        }
-        
-    }
     
     // MARK: - Methods
     
@@ -192,6 +196,14 @@ extension FirstViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0.5
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+
+        return CGSize(width: collectionView.bounds.width, height: 30.0)
+    }
+   
+   
+    
 
 }
 

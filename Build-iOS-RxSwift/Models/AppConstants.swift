@@ -71,6 +71,7 @@ struct App {
         static let coolGrey = UIColor(hex: "#bcbbc1")
         static let black = UIColor(hex: "#333333")
         static let sky = UIColor(hex: "#87cefa")
+        static let grayBackground = UIColor(white: 0.95, alpha: 1.0)
         
         static let blueGradient = [
             UIColor(hex: "#1a44a9"),
