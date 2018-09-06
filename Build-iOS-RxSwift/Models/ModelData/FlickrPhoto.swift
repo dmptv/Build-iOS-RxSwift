@@ -57,11 +57,12 @@ struct FlickrPhoto: Decodable, Equatable {
         return flickrImageURL(size: "b")
     }
 
-    //FIXME: - make rxswift download image
     private func flickrImageURL(size: String = "m") -> URL {
         return URL(string: "https://farm\(farm).staticflickr.com/\(server)/\(id)_\(secret)_\(size).jpg")!
     }
 }
+
+//FIXME: - make real logic
 
 // MARK: - Persistable
 

@@ -49,6 +49,8 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //FIXME: - Activity spinner as Viper, but in Rx way.(look to EmployeesView swift file)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
