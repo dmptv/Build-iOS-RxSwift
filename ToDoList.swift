@@ -17,9 +17,7 @@ import Foundation
  RxMoya: - https://github.com/Moya/Moya/blob/master/docs/RxSwift.md
  
  show the Onboarding screen
- 
  A powerful, protocol-oriented library for working with the keychain in Swift - https://github.com/matthewpalmer/Locksmith
-
  2 - Localization - read how to make it
  2 - Implement OAUTH auth
  2 - Kingfisher - https://github.com/onevcat/Kingfisher/wiki/Cheat-Sheet

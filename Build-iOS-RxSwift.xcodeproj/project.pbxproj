@@ -31,6 +31,10 @@
 		9D1C4E1D21300A9D00EADD62 /* ButtonFromRaised.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1C4E1C21300A9D00EADD62 /* ButtonFromRaised.swift */; };
 		9D1C4E1F21300C4600EADD62 /* UIView+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1C4E1E21300C4600EADD62 /* UIView+Extentions.swift */; };
 		9D32C1EA21396ACE00CA056A /* FetchPhotosServise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D32C1E921396ACE00CA056A /* FetchPhotosServise.swift */; };
+		9D406033214131D7004D91DC /* PhotosColectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D406032214131D7004D91DC /* PhotosColectionViewCell.swift */; };
+		9D406036214133FE004D91DC /* PhotosCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D406035214133FE004D91DC /* PhotosCollectionViewHeader.swift */; };
+		9D40603821417857004D91DC /* ReuseIdentifierProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D40603721417857004D91DC /* ReuseIdentifierProtocol.swift */; };
+		9D40603C21417FDD004D91DC /* SectionOfCustomData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D40603B21417FDD004D91DC /* SectionOfCustomData.swift */; };
 		9D4440B1212D4720007266C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4440B0212D4720007266C9 /* AppDelegate.swift */; };
 		9D4440B3212D4720007266C9 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4440B2212D4720007266C9 /* LoginViewController.swift */; };
 		9D4440B8212D4721007266C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D4440B7212D4721007266C9 /* Assets.xcassets */; };
@@ -106,6 +110,10 @@
 		9D1C4E1C21300A9D00EADD62 /* ButtonFromRaised.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonFromRaised.swift; sourceTree = "<group>"; };
 		9D1C4E1E21300C4600EADD62 /* UIView+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extentions.swift"; sourceTree = "<group>"; };
 		9D32C1E921396ACE00CA056A /* FetchPhotosServise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchPhotosServise.swift; sourceTree = "<group>"; };
+		9D406032214131D7004D91DC /* PhotosColectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosColectionViewCell.swift; sourceTree = "<group>"; };
+		9D406035214133FE004D91DC /* PhotosCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewHeader.swift; sourceTree = "<group>"; };
+		9D40603721417857004D91DC /* ReuseIdentifierProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseIdentifierProtocol.swift; sourceTree = "<group>"; };
+		9D40603B21417FDD004D91DC /* SectionOfCustomData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionOfCustomData.swift; sourceTree = "<group>"; };
 		9D4440AD212D4720007266C9 /* Build-iOS-RxSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Build-iOS-RxSwift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D4440B0212D4720007266C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9D4440B2212D4720007266C9 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -239,6 +247,31 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		9D406034214131DC004D91DC /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				9D406032214131D7004D91DC /* PhotosColectionViewCell.swift */,
+				9D406035214133FE004D91DC /* PhotosCollectionViewHeader.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		9D40603D21417FE9004D91DC /* SectionModels */ = {
+			isa = PBXGroup;
+			children = (
+				9D40603B21417FDD004D91DC /* SectionOfCustomData.swift */,
+			);
+			path = SectionModels;
+			sourceTree = "<group>";
+		};
+		9D40603E21417FFC004D91DC /* ModelData */ = {
+			isa = PBXGroup;
+			children = (
+				9DFA23A0213EC568001A61E1 /* FlickrPhoto.swift */,
+			);
+			path = ModelData;
+			sourceTree = "<group>";
+		};
 		9D4440A4212D4720007266C9 = {
 			isa = PBXGroup;
 			children = (
@@ -265,6 +298,7 @@
 				9DA0D6BC212E9FA200F3B833 /* Controllers */,
 				9DA0D6BF212EBB6000F3B833 /* ViewModels */,
 				9D4440E1212D8412007266C9 /* Flows */,
+				9D406034214131DC004D91DC /* Cells */,
 				9D76E331212EC2BE001EF37A /* Views */,
 				9D76E32D212EC215001EF37A /* Models */,
 				9DA0D6C5212EC0E200F3B833 /* Categories */,
@@ -351,8 +385,9 @@
 			children = (
 				9D50288E21343EB30009093E /* API */,
 				9D5028852134366F0009093E /* RealmObjects */,
+				9D40603E21417FFC004D91DC /* ModelData */,
+				9D40603D21417FE9004D91DC /* SectionModels */,
 				9D76E332212ECAFA001EF37A /* User.swift */,
-				9DFA23A0213EC568001A61E1 /* FlickrPhoto.swift */,
 				9DFA23A8213F0250001A61E1 /* FlickrPhotoResponse.swift */,
 				9D1C4E1A212FF4B700EADD62 /* AppConstants.swift */,
 			);
@@ -420,6 +455,7 @@
 			children = (
 				9DA0D6B9212E9E6700F3B833 /* ViewModelBased.swift */,
 				9DFA23A6213EFD56001A61E1 /* Persistable.swift */,
+				9D40603721417857004D91DC /* ReuseIdentifierProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -731,6 +767,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D1C4E0C212FEEED00EADD62 /* OptionalValueState.swift in Sources */,
+				9D40603C21417FDD004D91DC /* SectionOfCustomData.swift in Sources */,
 				9D4440D9212D82FC007266C9 /* Step.swift in Sources */,
 				9D1C4E16212FEEED00EADD62 /* String.swift in Sources */,
 				9DFA23A9213F0250001A61E1 /* FlickrPhotoResponse.swift in Sources */,
@@ -742,10 +779,12 @@
 				9DA1BC902136453C009168B6 /* SizedButton.swift in Sources */,
 				9D1C4E0F212FEEED00EADD62 /* InterfaceBuilderSupport.swift in Sources */,
 				9D1C4E0E212FEEED00EADD62 /* CaretString.swift in Sources */,
+				9D406033214131D7004D91DC /* PhotosColectionViewCell.swift in Sources */,
 				9DFA23A1213EC568001A61E1 /* FlickrPhoto.swift in Sources */,
 				9D1C4E06212FEEED00EADD62 /* Mask.swift in Sources */,
 				9D1C4E08212FEEED00EADD62 /* State.swift in Sources */,
 				9D1C4E10212FEEED00EADD62 /* PolyMaskTextFieldDelegate.swift in Sources */,
+				9D40603821417857004D91DC /* ReuseIdentifierProtocol.swift in Sources */,
 				9D9898DD2136AFEC0042D8A7 /* NotificationsViewModel.swift in Sources */,
 				9D4440DD212D82FC007266C9 /* Coordinator.swift in Sources */,
 				9D4440D8212D82FC007266C9 /* Rx+Pausable.swift in Sources */,
@@ -785,6 +824,7 @@
 				9D4440E3212D8489007266C9 /* AppStep.swift in Sources */,
 				9D1C4E19212FF06C00EADD62 /* GradientView.swift in Sources */,
 				9D4440D2212D82FC007266C9 /* NextFlowItem.swift in Sources */,
+				9D406036214133FE004D91DC /* PhotosCollectionViewHeader.swift in Sources */,
 				9D4440D5212D82FC007266C9 /* UIViewController+Rx.swift in Sources */,
 				9D1C4E15212FEEED00EADD62 /* NSCharacterSet.swift in Sources */,
 				9D4440D6212D82FC007266C9 /* UIWindow+Rx.swift in Sources */,

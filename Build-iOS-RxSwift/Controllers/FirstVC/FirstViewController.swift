@@ -17,31 +17,12 @@ import RxSwift
 import RxDataSources
 
 
-struct SectionOfCustomData {
-    let title: String
-    var items: [FlickrPhoto]
-}
-
-extension SectionOfCustomData: SectionModelType {
-    typealias Item = FlickrPhoto
-    
-    init(original: SectionOfCustomData, items: [FlickrPhoto]) {
-        self = original
-        self.items = items
-    }
-}
-
-extension SectionOfCustomData: AnimatableSectionModelType {
-    typealias Identity = String
-
-    var identity: String {
-        return title
-    }
-}
-
 class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
 
     private(set) var viewModel: FirstVCViewModel
+    var currentPage = 1
+    var totalPages = 1
+    
     private let disposeBag = DisposeBag()
     
     var collectionView: UICollectionView!
@@ -71,8 +52,6 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
-        //FIXME: - size for items, header items - fullfill
         
         viewModel.geiPhotos(search: "NY", page: 1)
    
@@ -110,30 +89,39 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
             $0.top.left.right.bottom.equalToSuperview()
         }
         
-        collectionView.register(Cell.self, forCellWithReuseIdentifier: "Cell")
-        collectionView.register(Header.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "Header")
+        collectionView.register(PhotosColectionViewCell.self, forCellWithReuseIdentifier: PhotosColectionViewCell.defaultReuseIdentifier)
+        collectionView.register(PhotosCollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: PhotosCollectionViewHeader.defaultReuseIdentifier)
     }
     
     private func setupDataSource() {
         dataSource = RxCollectionViewSectionedAnimatedDataSource<SectionOfCustomData>(configureCell: {
             _, cv, indexPath, item in
             
-            let cell = cv.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! Cell
-            cell.titleLabel.text = item.title
-            cell.titleLabel.backgroundColor = .yellow
-            return cell
+            return self.photoItemCell(cv, cellForItemAt: indexPath, item: item)
             
-        }, configureSupplementaryView: { _, cv, kind, indP in
-            
-            let header = cv.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Header", for: indP) as! Header
-            header.titleLabel.text = "Section \(indP.section)"
-            
-            header.titleLabel.backgroundColor = .cyan
-            
+        }, configureSupplementaryView: { item, cv, kind, indexPath in
+            let header = cv.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: PhotosCollectionViewHeader.defaultReuseIdentifier, for: indexPath) as! PhotosCollectionViewHeader
+            // invisible now - need size
+            header.titleLabel.text = "Section \(indexPath.section)"
             return header
-        }, canMoveItemAtIndexPath: { _, _ in true })
+        },
+           canMoveItemAtIndexPath: { _, _ in true })
         
         collectionView.rx.setDelegate(self).disposed(by: disposeBag)
+    }
+    
+    private func photoItemCell(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath, item: SectionOfCustomData.Item) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotosColectionViewCell.defaultReuseIdentifier, for: indexPath) as! PhotosColectionViewCell
+        
+        cell.photoImageView.alpha = 0
+        cell.photoImageView.kf.setImage(with: item.photoUrl) { image, error, cache, url in
+            cell.photoImageView.image = image
+            cell.photoImageView.contentMode = .scaleAspectFill
+            UIView.animate(withDuration: 0.2, animations: {
+                cell.photoImageView.alpha = 1.0
+            })
+        }
+        return cell
     }
     
     private func setupRefreshControl() {
@@ -177,59 +165,38 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
     
 }
 
+// MARK:- UICollectionViewDelegateFlowLayout
 extension FirstViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        return CGSize(width: 200, height: 100)
-    }
-    
-}
-
-
-class Header: UICollectionReusableView {
-    var titleLabel: UILabel = UILabel()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+        var itemSize: CGSize
+        let length = (UIScreen.main.bounds.width) / 3 - 1
+        let itemsCount = viewModel.photo.value.count
         
-        setupViews()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func setupViews() {
-        addSubview(titleLabel)
-        
-        titleLabel.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+        if indexPath.row < itemsCount {
+            itemSize = CGSize(width: length, height: length)
+        } else {
+            itemSize = CGSize(width: collectionView.bounds.width, height: 50.0)
         }
+        
+        return itemSize
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0.5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0.5
+    }
+
 }
 
-class Cell: UICollectionViewCell {
-    var titleLabel: UILabel = UILabel()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        setupViews()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func setupViews() {
-        addSubview(titleLabel)
-        
-        titleLabel.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-    }
-}
+
+
+
+
 
 
 
