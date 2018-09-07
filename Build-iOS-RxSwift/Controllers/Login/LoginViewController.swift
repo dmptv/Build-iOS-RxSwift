@@ -43,6 +43,8 @@ class LoginViewController: UIViewController, ViewModelBased, Stepper {
         }
         
         promptBiometricLoginIfEnabled()
+        
+        print("resources: \(RxSwift.Resources.total)")
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {

@@ -16,7 +16,6 @@ import RxCocoa
 import RxSwift
 import RxDataSources
 
-
 class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
     
     private var flickrPhotosView: FlickrPhotosView!
@@ -40,7 +39,7 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //FIXME: - Activity spinner as Viper, but in Rx way.(look to EmployeesView swift file), Infinite load,
+    //FIXME: - Логику для infinity download - show/hide spinner , Infinite load,
     // if error downloding show alert
     // alert view when downloading
     
@@ -49,7 +48,6 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
    
         setupUI()
         setupDataSource()
-        bindRx()
         
         viewModel.geiPhotos(search: "NY", page: 1)
     }
@@ -60,30 +58,12 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
         if let tabVC = parent as? AppTabBarController {
             tabVC.didTapTab = {_ in }
         }
+        
+         print("resources: \(RxSwift.Resources.total)")
     }
     
-    private func bindRx() {
-        data.asDriver()
-            .drive(flickrPhotosView.collectionView.rx.items(dataSource: dataSource!)) 
-            .disposed(by: disposeBag)
-        
-        // share replay
-        viewModel.photo.asDriver()
-            .filter { $0.count > 0 }
-            .drive(onNext: { [weak self] photos in
-                guard let `self` = self else { return }
-                self.data.accept([
-                    SectionOfCustomData(title: "Section: 0", items: photos)
-                    ])
-            })
-            .disposed(by: disposeBag)
-        
-        viewModel.photo.asDriver()
-            .drive(onNext: { [weak self] photos in
-                guard let `self` = self else { return }
-                self.flickrPhotosView.itemsCount.accept(photos.count)
-            })
-            .disposed(by: disposeBag)
+    deinit {
+        printMine(items: "deinited \(self.description)")
     }
     
     private func setupUI() {
@@ -116,6 +96,7 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
     }
     
     //MARK: - RxDataSources
+    // FIXME: - make data sourse class and abstract
     private func setupDataSource() {
         dataSource = RxCollectionViewSectionedAnimatedDataSource<SectionOfCustomData>(configureCell: {
             _, cv, indexPath, item in
@@ -124,24 +105,22 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
             
         }, configureSupplementaryView: { [weak self] item, cv, kind, indexPath in
             guard let `self` = self else { return UICollectionReusableView() }
-
-            if kind == UICollectionElementKindSectionHeader {
-                return self.setupHeader(kind: kind, indexPath: indexPath, cv: cv)
-            }
             
-            return self.setupFooter(kind: kind, indexPath: indexPath, cv: cv)
+            return self.setupHeaderFooter(kind: kind, indexPath: indexPath, cv: cv)
             
-        }, canMoveItemAtIndexPath: { _, _ in true })
+            },
+           moveItem: { _, _, _  in },
+           canMoveItemAtIndexPath: { _, _ in true })
         
+        bindRx()
     }
     
-    fileprivate func setupHeader(kind: String, indexPath: IndexPath, cv: UICollectionView) -> UICollectionReusableView {
-        let header = cv.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: PhotosCollectionViewHeader.defaultReuseIdentifier, for: indexPath) as! PhotosCollectionViewHeader
-        header.titleLabel.text = "New York"
-        return header
-    }
-    
-    fileprivate func setupFooter(kind: String, indexPath: IndexPath, cv: UICollectionView)  -> UICollectionReusableView {
+    fileprivate func setupHeaderFooter(kind: String, indexPath: IndexPath, cv: UICollectionView) -> UICollectionReusableView {
+        if kind == UICollectionElementKindSectionHeader {
+            let header = cv.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: PhotosCollectionViewHeader.defaultReuseIdentifier, for: indexPath) as! PhotosCollectionViewHeader
+            header.titleLabel.text = "New York"
+            return header
+        }
         let footer = cv.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: PhotoLoadingCell.defaultReuseIdentifier, for: indexPath) as! PhotoLoadingCell
         footer.backgroundColor = .clear
         
@@ -153,7 +132,7 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
         return footer
     }
     
-    private func photoItemCell(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath, item: SectionOfCustomData.Item) -> UICollectionViewCell {
+    fileprivate func photoItemCell(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath, item: SectionOfCustomData.Item) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotosColectionViewCell.defaultReuseIdentifier, for: indexPath) as! PhotosColectionViewCell
         
         cell.photoImageView.alpha = 0
@@ -167,6 +146,31 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
         return cell
     }
     
+    private func bindRx() {
+        data.asDriver()
+            .drive(flickrPhotosView.collectionView.rx.items(dataSource: dataSource!))
+            .disposed(by: disposeBag)
+        
+        let photosDriver = viewModel.photo.asDriver()
+        .asSharedSequence()
+        
+            photosDriver
+            .filter { $0.count > 0 }
+            .drive(onNext: { [weak self] photos in
+                guard let `self` = self else { return }
+                self.data.accept([
+                    SectionOfCustomData(title: "Section: 0", items: photos)
+                    ])
+            })
+            .disposed(by: disposeBag)
+        
+            photosDriver
+            .drive(onNext: { [weak self] photos in
+                guard let `self` = self else { return }
+                self.flickrPhotosView.itemsCount.accept(photos.count)
+            })
+            .disposed(by: disposeBag)
+    }
     
     // MARK: - Methods
     

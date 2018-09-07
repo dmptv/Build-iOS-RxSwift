@@ -25,4 +25,10 @@ class NotificationsViewController: UIViewController, ViewModelBased, Stepper {
         view.backgroundColor = .cyan 
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        print("resources: \(RxSwift.Resources.total)")
+    }
+    
 }
