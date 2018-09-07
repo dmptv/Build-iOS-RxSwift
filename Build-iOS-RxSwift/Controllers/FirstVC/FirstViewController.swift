@@ -102,13 +102,12 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
     }
     
     private func bindRx() {
-        data.asDriver()
+        data.asDriver(onErrorJustReturn: [])
             .drive(flickrPhotosView.collectionView.rx.items(dataSource: flickPhotosDataSourse.dataSource!))
             .disposed(by: disposeBag)
         
-        let photosDriver = viewModel.photo.asDriver()
-            .asSharedSequence()
-        
+        let photosDriver = viewModel.photo.asDriver(onErrorJustReturn: [])
+
         photosDriver
             .filter { $0.count > 0 }
             .drive(onNext: { [weak self] photos in

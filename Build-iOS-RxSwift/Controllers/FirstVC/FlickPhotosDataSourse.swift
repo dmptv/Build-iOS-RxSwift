@@ -51,6 +51,7 @@ class FlickPhotosDataSourse {
         } else {
             footer.stopLoading()
         }
+        
         return footer
     }
     
