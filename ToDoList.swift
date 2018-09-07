@@ -18,6 +18,8 @@ import Foundation
  
  make wave like onboarding tutorial
  
+ make one of modules in Viper
+ 
  make authtorization OAUTH gIthab - Octokit supports both, Github and Github Enterprise. Authentication is handled using Configurations.
  https://github.com/nerdishbynature/octokit.swift
  https://medium.com/swiftworld/building-app-with-vip-part-1-prerequisite-d0412c69afb6

@@ -36,6 +36,7 @@
 		9D40603821417857004D91DC /* ReuseIdentifierProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D40603721417857004D91DC /* ReuseIdentifierProtocol.swift */; };
 		9D40603C21417FDD004D91DC /* SectionOfCustomData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D40603B21417FDD004D91DC /* SectionOfCustomData.swift */; };
 		9D4060422142A948004D91DC /* FlickrPhotosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4060412142A948004D91DC /* FlickrPhotosView.swift */; };
+		9D4060442142C64D004D91DC /* PhotoLoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4060432142C64D004D91DC /* PhotoLoadingCell.swift */; };
 		9D4440B1212D4720007266C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4440B0212D4720007266C9 /* AppDelegate.swift */; };
 		9D4440B3212D4720007266C9 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4440B2212D4720007266C9 /* LoginViewController.swift */; };
 		9D4440B8212D4721007266C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D4440B7212D4721007266C9 /* Assets.xcassets */; };
@@ -116,6 +117,7 @@
 		9D40603721417857004D91DC /* ReuseIdentifierProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseIdentifierProtocol.swift; sourceTree = "<group>"; };
 		9D40603B21417FDD004D91DC /* SectionOfCustomData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionOfCustomData.swift; sourceTree = "<group>"; };
 		9D4060412142A948004D91DC /* FlickrPhotosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrPhotosView.swift; sourceTree = "<group>"; };
+		9D4060432142C64D004D91DC /* PhotoLoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLoadingCell.swift; sourceTree = "<group>"; };
 		9D4440AD212D4720007266C9 /* Build-iOS-RxSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Build-iOS-RxSwift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D4440B0212D4720007266C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9D4440B2212D4720007266C9 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 			children = (
 				9D406032214131D7004D91DC /* PhotosColectionViewCell.swift */,
 				9D406035214133FE004D91DC /* PhotosCollectionViewHeader.swift */,
+				9D4060432142C64D004D91DC /* PhotoLoadingCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -775,6 +778,7 @@
 				9D1C4E16212FEEED00EADD62 /* String.swift in Sources */,
 				9DFA23A9213F0250001A61E1 /* FlickrPhotoResponse.swift in Sources */,
 				9D9898DA2136AFA50042D8A7 /* NotificationsViewController.swift in Sources */,
+				9D4060442142C64D004D91DC /* PhotoLoadingCell.swift in Sources */,
 				9D4440E5212D872C007266C9 /* ToDoList.swift in Sources */,
 				9D4440E0212D8404007266C9 /* AppFlow.swift in Sources */,
 				9D5028872134367E0009093E /* FlickrPhotoObject.swift in Sources */,

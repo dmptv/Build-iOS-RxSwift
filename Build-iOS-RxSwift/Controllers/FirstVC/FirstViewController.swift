@@ -41,6 +41,8 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
     }
     
     //FIXME: - Activity spinner as Viper, but in Rx way.(look to EmployeesView swift file), Infinite load,
+    // if error downloding show alert
+    // alert view when downloading
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,7 +60,6 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
         if let tabVC = parent as? AppTabBarController {
             tabVC.didTapTab = {_ in }
         }
-        
     }
     
     private func bindRx() {
@@ -66,6 +67,7 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
             .drive(flickrPhotosView.collectionView.rx.items(dataSource: dataSource!)) 
             .disposed(by: disposeBag)
         
+        // share replay
         viewModel.photo.asDriver()
             .filter { $0.count > 0 }
             .drive(onNext: { [weak self] photos in
@@ -99,6 +101,10 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
             guard let `self` = self else { return }
             make.edges.equalTo(self.view)
         })
+        
+        flickrPhotosView.collectionView.rx
+            .setDelegate(flickrPhotosView)
+            .disposed(by: disposeBag)
     }
     
     private func setupFabMenu() {
@@ -116,15 +122,35 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
             
             return self.photoItemCell(cv, cellForItemAt: indexPath, item: item)
             
-        }, configureSupplementaryView: { item, cv, kind, indexPath in
-            let header = cv.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: PhotosCollectionViewHeader.defaultReuseIdentifier, for: indexPath) as! PhotosCollectionViewHeader
-            header.titleLabel.text = "New York"
-            return header
+        }, configureSupplementaryView: { [weak self] item, cv, kind, indexPath in
+            guard let `self` = self else { return UICollectionReusableView() }
+
+            if kind == UICollectionElementKindSectionHeader {
+                return self.setupHeader(kind: kind, indexPath: indexPath, cv: cv)
+            }
+            
+            return self.setupFooter(kind: kind, indexPath: indexPath, cv: cv)
+            
         }, canMoveItemAtIndexPath: { _, _ in true })
         
-        flickrPhotosView.collectionView.rx
-            .setDelegate(flickrPhotosView)
-            .disposed(by: disposeBag)
+    }
+    
+    fileprivate func setupHeader(kind: String, indexPath: IndexPath, cv: UICollectionView) -> UICollectionReusableView {
+        let header = cv.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: PhotosCollectionViewHeader.defaultReuseIdentifier, for: indexPath) as! PhotosCollectionViewHeader
+        header.titleLabel.text = "New York"
+        return header
+    }
+    
+    fileprivate func setupFooter(kind: String, indexPath: IndexPath, cv: UICollectionView)  -> UICollectionReusableView {
+        let footer = cv.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: PhotoLoadingCell.defaultReuseIdentifier, for: indexPath) as! PhotoLoadingCell
+        footer.backgroundColor = .clear
+        
+        if self.currentPage < self.totalPages {
+            footer.startLoading()
+        } else {
+            footer.stopLoading()
+        }
+        return footer
     }
     
     private func photoItemCell(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath, item: SectionOfCustomData.Item) -> UICollectionViewCell {

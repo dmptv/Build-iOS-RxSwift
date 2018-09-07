@@ -16,14 +16,14 @@ import SnapKit
 class AppTabBarController: UIViewController, Stepper {
     
     private(set) lazy var containerView = UIView(frame: .zero)
+    // material
     private(set) lazy var tabBar = TabBar(frame: .zero)
-    
+    var didTapTab: ((Int) -> Void)?
+
     private let disposeBag = DisposeBag()
 
     var viewControllers = [UIViewController]()
     private(set) var currentTabIndex = 0
-    
-    var didTapTab: ((Int) -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()

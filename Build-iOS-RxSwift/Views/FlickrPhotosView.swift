@@ -48,8 +48,8 @@ class FlickrPhotosView: UIView {
         
         collectionView.register(PhotosColectionViewCell.self, forCellWithReuseIdentifier: PhotosColectionViewCell.defaultReuseIdentifier)
         collectionView.register(PhotosCollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: PhotosCollectionViewHeader.defaultReuseIdentifier)
+        collectionView.register(PhotoLoadingCell.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: PhotoLoadingCell.defaultReuseIdentifier)
     }
-
 }
 
 // MARK:- CollectionView Delegate FlowLayout
@@ -82,6 +82,10 @@ extension FlickrPhotosView: UICollectionViewDelegateFlowLayout {
         return CGSize(width: collectionView.bounds.width, height: 30.0)
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        
+        return CGSize(width: collectionView.bounds.width, height: 45.0)
+    }
     
 }
 
