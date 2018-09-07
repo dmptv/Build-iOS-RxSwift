@@ -16,6 +16,15 @@ import Foundation
  NVActivityIndicatorView, collection of awesome loading animations: - https://github.com/ninjaprox/NVActivityIndicatorView
  RxMoya: - https://github.com/Moya/Moya/blob/master/docs/RxSwift.md
  
+ make wave like onboarding tutorial
+ 
+ make authtorization OAUTH gIthab - Octokit supports both, Github and Github Enterprise. Authentication is handled using Configurations.
+ https://github.com/nerdishbynature/octokit.swift
+ https://medium.com/swiftworld/building-app-with-vip-part-1-prerequisite-d0412c69afb6
+ 
+ Breakdown Notification models for applications
+ https://medium.muz.li/designing-notifications-for-applications-3cad56fecf96
+ 
  show the Onboarding screen
  A powerful, protocol-oriented library for working with the keychain in Swift - https://github.com/matthewpalmer/Locksmith
  2 - Localization - read how to make it

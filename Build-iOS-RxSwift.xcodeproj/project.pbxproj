@@ -35,6 +35,7 @@
 		9D406036214133FE004D91DC /* PhotosCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D406035214133FE004D91DC /* PhotosCollectionViewHeader.swift */; };
 		9D40603821417857004D91DC /* ReuseIdentifierProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D40603721417857004D91DC /* ReuseIdentifierProtocol.swift */; };
 		9D40603C21417FDD004D91DC /* SectionOfCustomData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D40603B21417FDD004D91DC /* SectionOfCustomData.swift */; };
+		9D4060422142A948004D91DC /* FlickrPhotosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4060412142A948004D91DC /* FlickrPhotosView.swift */; };
 		9D4440B1212D4720007266C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4440B0212D4720007266C9 /* AppDelegate.swift */; };
 		9D4440B3212D4720007266C9 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4440B2212D4720007266C9 /* LoginViewController.swift */; };
 		9D4440B8212D4721007266C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D4440B7212D4721007266C9 /* Assets.xcassets */; };
@@ -114,6 +115,7 @@
 		9D406035214133FE004D91DC /* PhotosCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewHeader.swift; sourceTree = "<group>"; };
 		9D40603721417857004D91DC /* ReuseIdentifierProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReuseIdentifierProtocol.swift; sourceTree = "<group>"; };
 		9D40603B21417FDD004D91DC /* SectionOfCustomData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionOfCustomData.swift; sourceTree = "<group>"; };
+		9D4060412142A948004D91DC /* FlickrPhotosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrPhotosView.swift; sourceTree = "<group>"; };
 		9D4440AD212D4720007266C9 /* Build-iOS-RxSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Build-iOS-RxSwift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D4440B0212D4720007266C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9D4440B2212D4720007266C9 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -422,6 +424,7 @@
 			children = (
 				9D1C4E17212FF06300EADD62 /* Common */,
 				9D1C4DEE212FEE8200EADD62 /* LoginView.swift */,
+				9D4060412142A948004D91DC /* FlickrPhotosView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -834,6 +837,7 @@
 				9D1C4E12212FEEED00EADD62 /* CaretStringIterator.swift in Sources */,
 				9D1C4E11212FEEED00EADD62 /* MaskedTextFieldDelegate.swift in Sources */,
 				9DA0D6BE212EBB4800F3B833 /* LoginViewModel.swift in Sources */,
+				9D4060422142A948004D91DC /* FlickrPhotosView.swift in Sources */,
 				9D5028972135080F0009093E /* MainMenuFlow.swift in Sources */,
 				9D1C4E1F21300C4600EADD62 /* UIView+Extentions.swift in Sources */,
 				9D50289021343ECC0009093E /* AuthService.swift in Sources */,

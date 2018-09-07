@@ -18,47 +18,38 @@ import RxDataSources
 
 
 class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
+    
+    private var flickrPhotosView: FlickrPhotosView!
 
     private(set) var viewModel: FirstVCViewModel
-    var currentPage = 1
-    var totalPages = 1
+    private var currentPage = 1
+    private var totalPages = 1
     
-    private let disposeBag = DisposeBag()
-    
-    var collectionView: UICollectionView!
-    
+    var dataSource: RxCollectionViewSectionedAnimatedDataSource<SectionOfCustomData>?
     var data = BehaviorRelay<[SectionOfCustomData]>(value: [
         SectionOfCustomData(title: "", items: [])
         ])
-    
-    var dataSource: RxCollectionViewSectionedAnimatedDataSource<SectionOfCustomData>?
+    private let disposeBag = DisposeBag()
     
     init(viewModel: FirstVCViewModel) {
         self.viewModel = viewModel
-      
         super.init(nibName: nil, bundle: nil)
-        
-        setupFabMenu()
     }
 
-    private func setupFabMenu() {
-        
-    }
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //FIXME: - Activity spinner as Viper, but in Rx way.(look to EmployeesView swift file), Infinite load
+    //FIXME: - Activity spinner as Viper, but in Rx way.(look to EmployeesView swift file), Infinite load,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        
-        viewModel.geiPhotos(search: "NY", page: 1)
    
         setupUI()
+        setupDataSource()
         bindRx()
+        
+        viewModel.geiPhotos(search: "NY", page: 1)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -72,40 +63,46 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
     
     private func bindRx() {
         data.asDriver()
-            .drive(collectionView.rx.items(dataSource: dataSource!))
+            .drive(flickrPhotosView.collectionView.rx.items(dataSource: dataSource!)) 
             .disposed(by: disposeBag)
         
-        viewModel.photo.asObservable()
+        viewModel.photo.asDriver()
             .filter { $0.count > 0 }
-            .subscribe({[weak self] event in
-                self?.data.accept([
-                    SectionOfCustomData(title: "Section: 0", items: event.element ?? [])
+            .drive(onNext: { [weak self] photos in
+                guard let `self` = self else { return }
+                self.data.accept([
+                    SectionOfCustomData(title: "Section: 0", items: photos)
                     ])
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.photo.asDriver()
+            .drive(onNext: { [weak self] photos in
+                guard let `self` = self else { return }
+                self.flickrPhotosView.itemsCount.accept(photos.count)
             })
             .disposed(by: disposeBag)
     }
     
     private func setupUI() {
-        setupCollectionView()
+        view.backgroundColor = .white
+
+        setuFlickrPhotosView()
+        setupFabMenu()
         setupRefreshControl()
-        
-        setupDataSource()
+    }
+ 
+    private func setuFlickrPhotosView() {
+        flickrPhotosView = FlickrPhotosView(frame: .zero)
+        view.addSubview(flickrPhotosView)
+        flickrPhotosView.snp.makeConstraints({ [weak self] (make) in
+            guard let `self` = self else { return }
+            make.edges.equalTo(self.view)
+        })
     }
     
-    private func setupCollectionView() {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        layout.sectionHeadersPinToVisibleBounds = true
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .clear
+    private func setupFabMenu() {
         
-        view.addSubview(collectionView)
-        collectionView.snp.makeConstraints {
-            $0.top.left.right.bottom.equalToSuperview()
-        }
-        
-        collectionView.register(PhotosColectionViewCell.self, forCellWithReuseIdentifier: PhotosColectionViewCell.defaultReuseIdentifier)
-        collectionView.register(PhotosCollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: PhotosCollectionViewHeader.defaultReuseIdentifier)
     }
     
     private func setupRefreshControl() {
@@ -125,7 +122,9 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
             return header
         }, canMoveItemAtIndexPath: { _, _ in true })
         
-        collectionView.rx.setDelegate(self).disposed(by: disposeBag)
+        flickrPhotosView.collectionView.rx
+            .setDelegate(flickrPhotosView)
+            .disposed(by: disposeBag)
     }
     
     private func photoItemCell(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath, item: SectionOfCustomData.Item) -> UICollectionViewCell {
@@ -171,41 +170,7 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
     
 }
 
-// MARK:- UICollectionViewDelegateFlowLayout
-extension FirstViewController: UICollectionViewDelegateFlowLayout {
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        var itemSize: CGSize
-        let length = (UIScreen.main.bounds.width) / 3 - 1
-        let itemsCount = viewModel.photo.value.count
-        
-        if indexPath.row < itemsCount {
-            itemSize = CGSize(width: length, height: length)
-        } else {
-            itemSize = CGSize(width: collectionView.bounds.width, height: 50.0)
-        }
-        
-        return itemSize
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0.5
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 0.5
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
 
-        return CGSize(width: collectionView.bounds.width, height: 30.0)
-    }
-   
-   
-    
-
-}
 
 
 

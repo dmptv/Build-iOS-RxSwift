@@ -27,7 +27,6 @@ class FirstVCViewModel: NSObject, ViewModel {
     // MARK: - Methods
     
     public func geiPhotos(search: String, page: Int) {
-        
         loading.accept(true)
         
         provider.rx
