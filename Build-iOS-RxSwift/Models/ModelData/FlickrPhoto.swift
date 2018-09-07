@@ -62,7 +62,7 @@ struct FlickrPhoto: Decodable, Equatable {
     }
 }
 
-//FIXME: - make real logic
+//FIXME: - make realm logic
 
 // MARK: - Persistable
 

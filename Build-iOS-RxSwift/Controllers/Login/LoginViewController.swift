@@ -25,7 +25,9 @@ class LoginViewController: UIViewController, ViewModelBased, Stepper {
     private let disposeBag = DisposeBag()
     
     private var loginView: LoginView!
-
+    
+    //MARK: - View Life Circle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -44,7 +46,11 @@ class LoginViewController: UIViewController, ViewModelBased, Stepper {
         
         promptBiometricLoginIfEnabled()
         
-        print("resources: \(RxSwift.Resources.total)")
+        printMine(items: "resources: \(RxSwift.Resources.total)")
+    }
+    
+    deinit {
+        printMine(items: "deinited \(self.description)")
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {

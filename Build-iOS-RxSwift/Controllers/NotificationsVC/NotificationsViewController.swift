@@ -28,7 +28,11 @@ class NotificationsViewController: UIViewController, ViewModelBased, Stepper {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        print("resources: \(RxSwift.Resources.total)")
+        printMine(items: "resources: \(RxSwift.Resources.total)")
+    }
+    
+    deinit {
+        printMine(items: "deinited \(self.description)")
     }
     
 }

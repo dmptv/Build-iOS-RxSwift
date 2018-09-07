@@ -24,7 +24,8 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
     private var currentPage = 1
     private var totalPages = 1
     
-    var dataSource: RxCollectionViewSectionedAnimatedDataSource<SectionOfCustomData>?
+    var flickPhotosDataSourse: FlickPhotosDataSourse!
+
     var data = BehaviorRelay<[SectionOfCustomData]>(value: [
         SectionOfCustomData(title: "", items: [])
         ])
@@ -39,15 +40,18 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //FIXME: - Логику для infinity download - show/hide spinner , Infinite load,
+    ///FIXME: - Логику для infinity download - show/hide spinner , Infinite load,
     // if error downloding show alert
     // alert view when downloading
+    // make currentPage totalPages - reactive
+    
+     //MARK: - View Life Circle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-   
+        
         setupUI()
-        setupDataSource()
+        bindRx()
         
         viewModel.geiPhotos(search: "NY", page: 1)
     }
@@ -59,7 +63,7 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
             tabVC.didTapTab = {_ in }
         }
         
-         print("resources: \(RxSwift.Resources.total)")
+        printMine(items: "resources: \(RxSwift.Resources.total)")
     }
     
     deinit {
@@ -82,79 +86,30 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
             make.edges.equalTo(self.view)
         })
         
+        setupFlickPhotosDataSourse()
+        setupflickrPhotosViewDelegate()
+    }
+    
+    fileprivate func setupFlickPhotosDataSourse() {
+        flickPhotosDataSourse = FlickPhotosDataSourse(collectionView: flickrPhotosView.collectionView)
+        flickPhotosDataSourse.setPages(currentPage: currentPage, totalPages: totalPages)
+    }
+    
+    fileprivate func setupflickrPhotosViewDelegate() {
         flickrPhotosView.collectionView.rx
             .setDelegate(flickrPhotosView)
             .disposed(by: disposeBag)
     }
     
-    private func setupFabMenu() {
-        
-    }
-    
-    private func setupRefreshControl() {
-        
-    }
-    
-    //MARK: - RxDataSources
-    // FIXME: - make data sourse class and abstract
-    private func setupDataSource() {
-        dataSource = RxCollectionViewSectionedAnimatedDataSource<SectionOfCustomData>(configureCell: {
-            _, cv, indexPath, item in
-            
-            return self.photoItemCell(cv, cellForItemAt: indexPath, item: item)
-            
-        }, configureSupplementaryView: { [weak self] item, cv, kind, indexPath in
-            guard let `self` = self else { return UICollectionReusableView() }
-            
-            return self.setupHeaderFooter(kind: kind, indexPath: indexPath, cv: cv)
-            
-            },
-           moveItem: { _, _, _  in },
-           canMoveItemAtIndexPath: { _, _ in true })
-        
-        bindRx()
-    }
-    
-    fileprivate func setupHeaderFooter(kind: String, indexPath: IndexPath, cv: UICollectionView) -> UICollectionReusableView {
-        if kind == UICollectionElementKindSectionHeader {
-            let header = cv.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: PhotosCollectionViewHeader.defaultReuseIdentifier, for: indexPath) as! PhotosCollectionViewHeader
-            header.titleLabel.text = "New York"
-            return header
-        }
-        let footer = cv.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: PhotoLoadingCell.defaultReuseIdentifier, for: indexPath) as! PhotoLoadingCell
-        footer.backgroundColor = .clear
-        
-        if self.currentPage < self.totalPages {
-            footer.startLoading()
-        } else {
-            footer.stopLoading()
-        }
-        return footer
-    }
-    
-    fileprivate func photoItemCell(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath, item: SectionOfCustomData.Item) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotosColectionViewCell.defaultReuseIdentifier, for: indexPath) as! PhotosColectionViewCell
-        
-        cell.photoImageView.alpha = 0
-        cell.photoImageView.kf.setImage(with: item.photoUrl) { image, error, cache, url in
-            cell.photoImageView.image = image
-            cell.photoImageView.contentMode = .scaleAspectFill
-            UIView.animate(withDuration: 0.2, animations: {
-                cell.photoImageView.alpha = 1.0
-            })
-        }
-        return cell
-    }
-    
     private func bindRx() {
         data.asDriver()
-            .drive(flickrPhotosView.collectionView.rx.items(dataSource: dataSource!))
+            .drive(flickrPhotosView.collectionView.rx.items(dataSource: flickPhotosDataSourse.dataSource!))
             .disposed(by: disposeBag)
         
         let photosDriver = viewModel.photo.asDriver()
-        .asSharedSequence()
+            .asSharedSequence()
         
-            photosDriver
+        photosDriver
             .filter { $0.count > 0 }
             .drive(onNext: { [weak self] photos in
                 guard let `self` = self else { return }
@@ -164,12 +119,20 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
             })
             .disposed(by: disposeBag)
         
-            photosDriver
+        photosDriver
             .drive(onNext: { [weak self] photos in
                 guard let `self` = self else { return }
                 self.flickrPhotosView.itemsCount.accept(photos.count)
             })
             .disposed(by: disposeBag)
+    }
+    
+    private func setupFabMenu() {
+        
+    }
+    
+    private func setupRefreshControl() {
+        
     }
     
     // MARK: - Methods
@@ -199,28 +162,6 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
     func fabMenuDidClose(fabMenu: FABMenu) { }
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
