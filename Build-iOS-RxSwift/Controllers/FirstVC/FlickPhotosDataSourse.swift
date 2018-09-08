@@ -16,8 +16,11 @@ class FlickPhotosDataSourse {
     var dataSource: RxCollectionViewSectionedAnimatedDataSource<SectionOfCustomData>?
     
     var collectionView: UICollectionView!
-    private var currentPage = 1
-    private var totalPages = 1
+//    private var currentPage = 1
+    var pages = BehaviorRelay<Int>(value: 1)
+    var currentPage = BehaviorRelay<Int>(value: 1)
+    
+    var isFetchPhotos = BehaviorRelay<Bool>(value: false)
     
     init(collectionView: UICollectionView) {
         self.collectionView = collectionView
@@ -45,12 +48,15 @@ class FlickPhotosDataSourse {
         }
         let footer = cv.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: PhotoLoadingCell.defaultReuseIdentifier, for: indexPath) as! PhotoLoadingCell
         footer.backgroundColor = .clear
-        
-        if self.currentPage < self.totalPages {
+
+        if self.currentPage.value < self.pages.value {
             footer.startLoading()
         } else {
             footer.stopLoading()
         }
+        
+        self.isFetchPhotos.accept(true)
+        self.currentPage.accept(self.currentPage.value)
         
         return footer
     }
@@ -68,13 +74,18 @@ class FlickPhotosDataSourse {
         }
         return cell
     }
-    
-    public func setPages(currentPage: Int, totalPages: Int) {
-        self.currentPage = currentPage
-        self.totalPages = totalPages
-    }
-    
+  
 }
+
+
+
+
+
+
+
+
+
+
 
 
 

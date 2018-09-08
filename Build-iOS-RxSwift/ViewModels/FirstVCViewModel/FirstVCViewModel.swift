@@ -26,6 +26,7 @@ class FirstVCViewModel: NSObject, ServicesViewModel {
     }
     
     let photo = BehaviorRelay<[FlickrPhoto]>(value: [])
+    let pages = BehaviorRelay<Int>(value: 1)
 
     let onSuccess = PublishSubject<Void>()
     let onError = PublishSubject<Error>()
@@ -47,18 +48,20 @@ class FirstVCViewModel: NSObject, ServicesViewModel {
                     do {
                         let root = try JSONDecoder().decode(Root.self, from: json.data)
                         let photos: [FlickrPhoto] = root.photos.photo
+                        let pages: Int = Int(root.photos.total) ?? 0
                         
                         self.onSuccess.onNext(())
                         
+                        self.pages.accept(pages)
                         self.photo.accept(photos)
 
                     } catch (let error) {
-                        printMine(items: error.localizedDescription)
+                        printMine(items: "try JSONDecoder().decode error: ",  error.localizedDescription)
                     }
 
                     
                 case .error(let error):
-                    printMine(items: error.localizedDescription)
+                    printMine(items: "response's error ", error.localizedDescription)
                     self.onError.onNext(error)
                 }
             }

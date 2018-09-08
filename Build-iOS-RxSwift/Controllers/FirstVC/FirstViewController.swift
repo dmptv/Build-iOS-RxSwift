@@ -8,7 +8,6 @@
 
 import UIKit
 import Material
-import Moya
 import PopupDialog
 import SnapKit
 import Kingfisher
@@ -21,20 +20,18 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate, ViewModel
     var viewModel: FirstVCViewModel!
     
     private var flickrPhotosView: FlickrPhotosView!
-    private var currentPage = 1
-    private var totalPages = 1
+//    private var currentPage: Int = 1
+    var currentPage = BehaviorRelay<Int>(value: 1)
     
     var flickPhotosDataSourse: FlickPhotosDataSourse!
+    var photosArray = [FlickrPhoto]()
 
     var data = BehaviorRelay<[SectionOfCustomData]>(value: [
         SectionOfCustomData(title: "", items: [])
         ])
     private let disposeBag = DisposeBag()
     
-    ///FIXME: - Логику для infinity download - show/hide spinner , Infinite load,
-    // if error downloding show alert
-    // alert view when downloading
-    // make currentPage totalPages - reactive
+    ///FIXME: - if error downloding show alert, alert view when downloading
     
      //MARK: - View Life Circle
     
@@ -43,8 +40,6 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate, ViewModel
         
         setupUI()
         bindRx()
-        
-        viewModel.geiPhotos(search: "NY", page: 1)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -84,7 +79,6 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate, ViewModel
     
     fileprivate func setupFlickPhotosDataSourse() {
         flickPhotosDataSourse = FlickPhotosDataSourse(collectionView: flickrPhotosView.collectionView)
-        flickPhotosDataSourse.setPages(currentPage: currentPage, totalPages: totalPages)
     }
     
     fileprivate func setupflickrPhotosViewDelegate() {
@@ -104,19 +98,48 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate, ViewModel
             .filter { $0.count > 0 }
             .drive(onNext: { [weak self] photos in
                 guard let `self` = self else { return }
+                self.isNotFirstAttempting = true
+                self.photosArray.append(contentsOf: photos)
                 self.data.accept([
-                    SectionOfCustomData(title: "Section: 0", items: photos)
+                    SectionOfCustomData(title: "Section: 0", items: self.photosArray)
                     ])
+                
+                self.flickrPhotosView.itemsCount.accept(self.photosArray.count)
             })
             .disposed(by: disposeBag)
         
-        photosDriver
-            .drive(onNext: { [weak self] photos in
+        viewModel.pages.asDriver(onErrorJustReturn: 1)
+            .drive(onNext: { [weak self] pages in
                 guard let `self` = self else { return }
-                self.flickrPhotosView.itemsCount.accept(photos.count)
+                self.flickPhotosDataSourse.pages.accept(pages)
             })
             .disposed(by: disposeBag)
+        
+        flickPhotosDataSourse.isFetchPhotos.asDriver()
+            .filter { $0 == true }
+            .drive(onNext: { [weak self] isFetching in
+                guard let `self` = self else { return }
+     
+                if self.isNotFirstAttempting {
+                    let tempCurrentPage = self.currentPage.value + 1
+                    self.currentPage.accept(tempCurrentPage)
+                }
+                
+                self.viewModel.geiPhotos(search: "NY", page: self.currentPage.value)
+            })
+            .disposed(by: disposeBag)
+        
+        currentPage.asDriver()
+            .drive(onNext: { [weak self] pages in
+            guard let `self` = self else { return }
+            self.flickPhotosDataSourse.currentPage.accept(pages)
+        })
+            .disposed(by: disposeBag)
+        
     }
+    
+    private var isNotFirstAttempting = false
+
     
     private func setupFabMenu() {
         
