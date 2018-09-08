@@ -15,6 +15,7 @@ import RxCocoa
 import RxSwift
 import RxDataSources
 import Moya
+import NVActivityIndicatorView
 
 
 // https://github.com/hyperoslo/Lightbox / LightboxController - make Header with slide show - refactor
@@ -24,18 +25,20 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate, ViewModel
     typealias ViewModelType = FirstVCViewModel
     var viewModel: FirstVCViewModel!
     
+    var spinner = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 120, height: 80), type: .ballPulseSync, color: App.Color.midGreen, padding: 0)
     private var flickrPhotosView: FlickrPhotosView!
-    var currentPage = BehaviorRelay<Int>(value: 1)
     
     var flickPhotosDataSourse: FlickPhotosDataSourse!
-    var photosArray = [FlickrPhoto]()
-
     var data = BehaviorRelay<[SectionOfCustomData]>(value: [
         SectionOfCustomData(title: "", items: [])
         ])
+    var photosArray = [FlickrPhoto]()
+    var currentPage = BehaviorRelay<Int>(value: 1)
     private let disposeBag = DisposeBag()
+    private var isNotFirstAttempting = false
     
-    ///FIXME: - if error downloding show alert, alert view when downloading
+    ///FIXME: - alert view when downloading
+    // show detail view controller
     
      //MARK: - View Life Circle
     
@@ -64,9 +67,18 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate, ViewModel
     private func setupUI() {
         view.backgroundColor = .white
 
+        setupWaitingView()
         setuFlickrPhotosView()
         setupFabMenu()
         setupRefreshControl()
+    }
+    
+    private func setupWaitingView() {
+        view.addSubview(spinner)
+        spinner.snp.makeConstraints {
+            $0.centerX.centerY.equalToSuperview()
+        }
+        view.bringSubview(toFront: spinner)
     }
  
     private func setuFlickrPhotosView() {
@@ -97,17 +109,48 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate, ViewModel
             .disposed(by: disposeBag)
         
         let photosDriver = viewModel.photo.asDriver(onErrorJustReturn: [])
-
+        
         photosDriver
+            .filter { $0.count == 0 }
+            .drive(onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+                self.startLoading()
+            })
+            .disposed(by: disposeBag)
+        
+        let fullPhotosDriver = photosDriver
             .filter { $0.count > 0 }
+            .asDriver()
+        
+        fullPhotosDriver
+            .drive(onNext: { [weak self] _ in
+                guard let `self` = self else { return }
+                self.stopLoading()
+            })
+            .disposed(by: disposeBag)
+        
+        fullPhotosDriver
             .drive(onNext: { [weak self] photos in
                 guard let `self` = self else { return }
                 self.isNotFirstAttempting = true
                 self.photosArray.append(contentsOf: photos)
+            })
+            .disposed(by: disposeBag)
+
+        fullPhotosDriver
+            .drive(onNext: { [weak self] photos in
+                guard let `self` = self else { return }
                 self.data.accept([
                     SectionOfCustomData(title: "Section: 0", items: self.photosArray)
                     ])
                 
+                self.flickrPhotosView.itemsCount.accept(self.photosArray.count)
+            })
+            .disposed(by: disposeBag)
+        
+        fullPhotosDriver
+            .drive(onNext: { [weak self] photos in
+                guard let `self` = self else { return }
                 self.flickrPhotosView.itemsCount.accept(self.photosArray.count)
             })
             .disposed(by: disposeBag)
@@ -120,7 +163,7 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate, ViewModel
             })
             .disposed(by: disposeBag)
         
-        // bidn fetching
+        // bind fetching
         flickPhotosDataSourse.isFetchPhotos.asDriver()
             .filter { $0 == true }
             .drive(onNext: { [weak self] isFetching in
@@ -154,8 +197,7 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate, ViewModel
             })
             .disposed(by: disposeBag)
     }
-    
-    private var isNotFirstAttempting = false
+ 
 
     
     private func setupFabMenu() {
@@ -170,6 +212,16 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate, ViewModel
     
     @objc
     private func refreshFeed() { }
+    
+    public func startLoading() {
+        spinner.isHidden = false
+        spinner.startAnimating()
+    }
+    
+    public func stopLoading() {
+        spinner.isHidden = true
+        spinner.stopAnimating()
+    }
   
     private func setupFABButton() { }
     
