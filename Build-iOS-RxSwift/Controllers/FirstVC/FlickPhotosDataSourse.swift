@@ -42,7 +42,7 @@ class FlickPhotosDataSourse {
     fileprivate func setupHeaderFooter(kind: String, indexPath: IndexPath, cv: UICollectionView) -> UICollectionReusableView {
         if kind == UICollectionElementKindSectionHeader {
             let header = cv.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: PhotosCollectionViewHeader.defaultReuseIdentifier, for: indexPath) as! PhotosCollectionViewHeader
-            header.titleLabel.text = "New York"
+            header.titleLabel.text = "San-Francisco"
             return header
         }
         let footer = cv.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: PhotoLoadingCell.defaultReuseIdentifier, for: indexPath) as! PhotoLoadingCell

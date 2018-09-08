@@ -28,12 +28,14 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate, ViewModel
     var data = BehaviorRelay<[SectionOfCustomData]>(value: [
         SectionOfCustomData(title: "", items: [])
         ])
-    var photosArray = [FlickrPhoto]()
+    var photosArray = BehaviorRelay<[FlickrPhoto]>(value: [])
+        // [FlickrPhoto]()
     var currentPage = BehaviorRelay<Int>(value: 1)
     private let disposeBag = DisposeBag()
     private var isNotFirstAttempting = false
     
-    /// FIXME: - FabMenu, shoose form, send form with multipart data (find server with callbak for testing)
+    /// FIXME: - refreshFeed
+    // FabMenu, shoose form, send form with multipart data (find server with callbak for testing)
     // show detail view controller
     // https://github.com/hyperoslo/Lightbox / LightboxController - make Header with slide show - refactor
     // look up - ProfileViewController
@@ -106,9 +108,7 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate, ViewModel
             .drive(flickrPhotosView.collectionView.rx.items(dataSource: flickPhotosDataSourse.dataSource!))
             .disposed(by: disposeBag)
         
-        let photosDriver = viewModel.photo.asDriver(onErrorJustReturn: [])
-        
-        photosDriver
+        photosArray.asDriver(onErrorJustReturn: [])
             .filter { $0.count == 0 }
             .drive(onNext: { [weak self] _ in
                 guard let `self` = self else { return }
@@ -116,40 +116,42 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate, ViewModel
             })
             .disposed(by: disposeBag)
         
-        let fullPhotosDriver = photosDriver
+        let photosDriver = viewModel.photo.asDriver(onErrorJustReturn: [])
             .filter { $0.count > 0 }
             .asDriver()
         
-        fullPhotosDriver
+        photosDriver
             .drive(onNext: { [weak self] _ in
                 guard let `self` = self else { return }
                 self.stopLoading()
             })
             .disposed(by: disposeBag)
         
-        fullPhotosDriver
+        photosDriver
             .drive(onNext: { [weak self] photos in
                 guard let `self` = self else { return }
                 self.isNotFirstAttempting = true
-                self.photosArray.append(contentsOf: photos)
+                var tempArr: [FlickrPhoto] = self.photosArray.value
+                tempArr.append(contentsOf: photos)
+                self.photosArray.accept(tempArr)
             })
             .disposed(by: disposeBag)
 
-        fullPhotosDriver
+        photosDriver
             .drive(onNext: { [weak self] photos in
                 guard let `self` = self else { return }
                 self.data.accept([
-                    SectionOfCustomData(title: "Section: 0", items: self.photosArray)
+                    SectionOfCustomData(title: "Section: 0", items: self.photosArray.value)
                     ])
                 
-                self.flickrPhotosView.itemsCount.accept(self.photosArray.count)
+                self.flickrPhotosView.itemsCount.accept(self.photosArray.value.count)
             })
             .disposed(by: disposeBag)
         
-        fullPhotosDriver
+        photosDriver
             .drive(onNext: { [weak self] photos in
                 guard let `self` = self else { return }
-                self.flickrPhotosView.itemsCount.accept(self.photosArray.count)
+                self.flickrPhotosView.itemsCount.accept(self.photosArray.value.count)
             })
             .disposed(by: disposeBag)
         
@@ -172,7 +174,7 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate, ViewModel
                     self.currentPage.accept(tempCurrentPage)
                 }
                 
-                self.viewModel.geiPhotos(search: "Amanda Cerny", page: self.currentPage.value)
+                self.viewModel.geiPhotos(search: "San-Francisco", page: self.currentPage.value)
             })
             .disposed(by: disposeBag)
         
