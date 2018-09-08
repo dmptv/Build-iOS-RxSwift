@@ -47,7 +47,7 @@ class FlickPhotosDataSourse {
         }
         let footer = cv.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: PhotoLoadingCell.defaultReuseIdentifier, for: indexPath) as! PhotoLoadingCell
         footer.backgroundColor = .clear
-
+        
         if self.currentPage.value < self.pages.value {
             footer.startLoading()
         } else {

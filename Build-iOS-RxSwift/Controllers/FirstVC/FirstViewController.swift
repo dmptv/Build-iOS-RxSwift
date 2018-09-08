@@ -17,10 +17,6 @@ import RxDataSources
 import Moya
 import NVActivityIndicatorView
 
-
-// https://github.com/hyperoslo/Lightbox / LightboxController - make Header with slide show - refactor
-// look up - ProfileViewController
-
 class FirstViewController: UIViewController, Stepper, FABMenuDelegate, ViewModelBased {
     typealias ViewModelType = FirstVCViewModel
     var viewModel: FirstVCViewModel!
@@ -37,8 +33,10 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate, ViewModel
     private let disposeBag = DisposeBag()
     private var isNotFirstAttempting = false
     
-    ///FIXME: - alert view when downloading
+    /// FIXME: - FabMenu, shoose form, send form with multipart data (find server with callbak for testing)
     // show detail view controller
+    // https://github.com/hyperoslo/Lightbox / LightboxController - make Header with slide show - refactor
+    // look up - ProfileViewController
     
      //MARK: - View Life Circle
     
@@ -174,7 +172,7 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate, ViewModel
                     self.currentPage.accept(tempCurrentPage)
                 }
                 
-                self.viewModel.geiPhotos(search: "NY", page: self.currentPage.value)
+                self.viewModel.geiPhotos(search: "Amanda Cerny", page: self.currentPage.value)
             })
             .disposed(by: disposeBag)
         
@@ -197,8 +195,6 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate, ViewModel
             })
             .disposed(by: disposeBag)
     }
- 
-
     
     private func setupFabMenu() {
         

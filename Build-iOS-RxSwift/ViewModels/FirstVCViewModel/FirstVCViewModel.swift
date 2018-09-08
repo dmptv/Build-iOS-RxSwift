@@ -47,8 +47,8 @@ class FirstVCViewModel: NSObject, ServicesViewModel {
                     do {
                         let root = try JSONDecoder().decode(Root.self, from: json.data)
                         let photos: [FlickrPhoto] = root.photos.photo
-                        let pages: Int = Int(root.photos.total) ?? 0
-                        
+                        let pages: Int = root.photos.pages
+     
                         self.onSuccess.onNext(())
                         
                         self.pages.accept(pages)
