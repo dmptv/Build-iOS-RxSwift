@@ -16,11 +16,11 @@ import RxCocoa
 import RxSwift
 import RxDataSources
 
-class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
+class FirstViewController: UIViewController, Stepper, FABMenuDelegate, ViewModelBased {
+    typealias ViewModelType = FirstVCViewModel
+    var viewModel: FirstVCViewModel!
     
     private var flickrPhotosView: FlickrPhotosView!
-
-    private(set) var viewModel: FirstVCViewModel
     private var currentPage = 1
     private var totalPages = 1
     
@@ -30,15 +30,6 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
         SectionOfCustomData(title: "", items: [])
         ])
     private let disposeBag = DisposeBag()
-    
-    init(viewModel: FirstVCViewModel) {
-        self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     ///FIXME: - Логику для infinity download - show/hide spinner , Infinite load,
     // if error downloding show alert
@@ -67,6 +58,7 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate {
     }
     
     deinit {
+        printMine(items: "resources: \(RxSwift.Resources.decrementTotal())")
         printMine(items: "deinited \(self.description)")
     }
     

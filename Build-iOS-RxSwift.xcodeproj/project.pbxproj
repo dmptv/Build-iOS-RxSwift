@@ -38,6 +38,7 @@
 		9D4060422142A948004D91DC /* FlickrPhotosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4060412142A948004D91DC /* FlickrPhotosView.swift */; };
 		9D4060442142C64D004D91DC /* PhotoLoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4060432142C64D004D91DC /* PhotoLoadingCell.swift */; };
 		9D4060462142F3F8004D91DC /* FlickPhotosDataSourse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4060452142F3F8004D91DC /* FlickPhotosDataSourse.swift */; };
+		9D4060482143A6C3004D91DC /* MyDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4060472143A6C3004D91DC /* MyDateFormatter.swift */; };
 		9D4440B1212D4720007266C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4440B0212D4720007266C9 /* AppDelegate.swift */; };
 		9D4440B3212D4720007266C9 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4440B2212D4720007266C9 /* LoginViewController.swift */; };
 		9D4440B8212D4721007266C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D4440B7212D4721007266C9 /* Assets.xcassets */; };
@@ -120,6 +121,7 @@
 		9D4060412142A948004D91DC /* FlickrPhotosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrPhotosView.swift; sourceTree = "<group>"; };
 		9D4060432142C64D004D91DC /* PhotoLoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLoadingCell.swift; sourceTree = "<group>"; };
 		9D4060452142F3F8004D91DC /* FlickPhotosDataSourse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickPhotosDataSourse.swift; sourceTree = "<group>"; };
+		9D4060472143A6C3004D91DC /* MyDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDateFormatter.swift; sourceTree = "<group>"; };
 		9D4440AD212D4720007266C9 /* Build-iOS-RxSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Build-iOS-RxSwift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D4440B0212D4720007266C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9D4440B2212D4720007266C9 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -535,6 +537,7 @@
 			children = (
 				9DA1BC95213654F4009168B6 /* FirstViewController.swift */,
 				9D4060452142F3F8004D91DC /* FlickPhotosDataSourse.swift */,
+				9D4060472143A6C3004D91DC /* MyDateFormatter.swift */,
 			);
 			path = FirstVC;
 			sourceTree = "<group>";
@@ -806,6 +809,7 @@
 				9DA0D6C2212EBF5700F3B833 /* UIViewController+Extensions.swift in Sources */,
 				9D4440D1212D82FC007266C9 /* Flow.swift in Sources */,
 				9D32C1EA21396ACE00CA056A /* FetchPhotosServise.swift in Sources */,
+				9D4060482143A6C3004D91DC /* MyDateFormatter.swift in Sources */,
 				9DFA23A7213EFD56001A61E1 /* Persistable.swift in Sources */,
 				9D4440DA212D82FC007266C9 /* HasDisposeBag.swift in Sources */,
 				9D502899213508F60009093E /* AppNavbarController.swift in Sources */,

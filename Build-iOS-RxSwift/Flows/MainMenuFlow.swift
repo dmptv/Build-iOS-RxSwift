@@ -8,6 +8,7 @@
 
 import UIKit
 import Material
+import Moya
 
 class MainMenuFlow: Flow {
     
@@ -78,9 +79,11 @@ class MainMenuFlow: Flow {
     // MARK: - Methods
     
     private func configuredFirstVC() -> FirstViewController {
-        let firstVCViewModel = FirstVCViewModel()
-        let firstVC = FirstViewController(viewModel: firstVCViewModel)
-        return firstVC
+        let viewModel = FirstVCViewModel()
+        let services = MoyaProvider<FetchPhotosServise>()
+        let viewController = FirstViewController.instantiate(withViewModel: viewModel, andServices: services)
+//            FirstViewController.instantiate(withViewModel: viewModel)
+        return viewController
     }
 
 }

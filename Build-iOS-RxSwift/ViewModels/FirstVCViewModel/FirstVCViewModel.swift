@@ -12,13 +12,19 @@ import RxSwift
 import RxCocoa
 import RealmSwift
 
-class FirstVCViewModel: NSObject, ViewModel {
+class FirstVCViewModel: NSObject, ServicesViewModel {
+    typealias Services = MoyaProvider<FetchPhotosServise>
+    var services: MoyaProvider<FetchPhotosServise>!
     
     private(set) var loading = BehaviorRelay<Bool>(value: false)
     private let disposeBag = DisposeBag()
 
-    private let provider = MoyaProvider<FetchPhotosServise>()
-
+    private var provider: MoyaProvider<FetchPhotosServise> {
+        get {
+            return services
+        }
+    }
+    
     let photo = BehaviorRelay<[FlickrPhoto]>(value: [])
 
     let onSuccess = PublishSubject<Void>()
