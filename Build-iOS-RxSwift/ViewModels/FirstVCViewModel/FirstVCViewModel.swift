@@ -44,7 +44,6 @@ class FirstVCViewModel: NSObject, ServicesViewModel {
                 
                 switch response {
                 case .success(let json):
-                    
                     do {
                         let root = try JSONDecoder().decode(Root.self, from: json.data)
                         let photos: [FlickrPhoto] = root.photos.photo
@@ -57,9 +56,8 @@ class FirstVCViewModel: NSObject, ServicesViewModel {
 
                     } catch (let error) {
                         printMine(items: "try JSONDecoder().decode error: ",  error.localizedDescription)
+                        self.onError.onNext(error)
                     }
-
-                    
                 case .error(let error):
                     printMine(items: "response's error ", error.localizedDescription)
                     self.onError.onNext(error)

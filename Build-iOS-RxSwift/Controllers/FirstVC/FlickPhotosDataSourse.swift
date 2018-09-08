@@ -16,7 +16,6 @@ class FlickPhotosDataSourse {
     var dataSource: RxCollectionViewSectionedAnimatedDataSource<SectionOfCustomData>?
     
     var collectionView: UICollectionView!
-//    private var currentPage = 1
     var pages = BehaviorRelay<Int>(value: 1)
     var currentPage = BehaviorRelay<Int>(value: 1)
     
@@ -56,7 +55,6 @@ class FlickPhotosDataSourse {
         }
         
         self.isFetchPhotos.accept(true)
-        self.currentPage.accept(self.currentPage.value)
         
         return footer
     }

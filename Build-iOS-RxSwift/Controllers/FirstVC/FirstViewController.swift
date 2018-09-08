@@ -14,13 +14,17 @@ import Kingfisher
 import RxCocoa
 import RxSwift
 import RxDataSources
+import Moya
+
+
+// https://github.com/hyperoslo/Lightbox / LightboxController - make Header with slide show - refactor
+// look up - ProfileViewController
 
 class FirstViewController: UIViewController, Stepper, FABMenuDelegate, ViewModelBased {
     typealias ViewModelType = FirstVCViewModel
     var viewModel: FirstVCViewModel!
     
     private var flickrPhotosView: FlickrPhotosView!
-//    private var currentPage: Int = 1
     var currentPage = BehaviorRelay<Int>(value: 1)
     
     var flickPhotosDataSourse: FlickPhotosDataSourse!
@@ -109,12 +113,14 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate, ViewModel
             .disposed(by: disposeBag)
         
         viewModel.pages.asDriver(onErrorJustReturn: 1)
+            .distinctUntilChanged()
             .drive(onNext: { [weak self] pages in
                 guard let `self` = self else { return }
                 self.flickPhotosDataSourse.pages.accept(pages)
             })
             .disposed(by: disposeBag)
         
+        // bidn fetching
         flickPhotosDataSourse.isFetchPhotos.asDriver()
             .filter { $0 == true }
             .drive(onNext: { [weak self] isFetching in
@@ -131,11 +137,22 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate, ViewModel
         
         currentPage.asDriver()
             .drive(onNext: { [weak self] pages in
-            guard let `self` = self else { return }
-            self.flickPhotosDataSourse.currentPage.accept(pages)
-        })
+                guard let `self` = self else { return }
+                self.flickPhotosDataSourse.currentPage.accept(pages)
+            })
             .disposed(by: disposeBag)
         
+        // bind for error
+        viewModel.onError
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] error in
+                guard let `self` = self else { return }
+                
+                if let moyaError = error as? MoyaError {
+                    self.showErrorAlert(moyaError.localizedDescription)
+                }
+            })
+            .disposed(by: disposeBag)
     }
     
     private var isNotFirstAttempting = false
@@ -153,9 +170,7 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate, ViewModel
     
     @objc
     private func refreshFeed() { }
-    
-    private func onUnauthorized() { }
-    
+  
     private func setupFABButton() { }
     
     private func setupFABMenuItems() { }
