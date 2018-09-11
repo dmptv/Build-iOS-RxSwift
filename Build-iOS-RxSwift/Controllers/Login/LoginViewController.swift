@@ -46,7 +46,7 @@ class LoginViewController: UIViewController, ViewModelBased, Stepper {
         
         promptBiometricLoginIfEnabled()
         
-        printMine(items: "resources: \(RxSwift.Resources.total)")
+//        printMine(items: "resources: \(RxSwift.Resources.total)")
     }
     
     deinit {

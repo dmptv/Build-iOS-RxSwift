@@ -43,7 +43,7 @@ extension FetchPhotosServise: AuthorizedTargetType {
             let parameters = [
                 "method": "flickr.photos.search",
                 "api_key": App.StringStruct.APIKey,
-                "tags": searchText,
+                "tags": searchText.URLEscapedString,
                 "page": page,
                 "format": "json",
                 "nojsoncallback": 1

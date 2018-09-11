@@ -12,10 +12,16 @@ import Moya
 
 public extension String {
 
+    // make data from custom json
     public var utf8Encoded: Data {
         return data(using: .utf8)!
     }
+    
+    var URLEscapedString: String {
+        return self.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlHostAllowed)!
+    }
 }
+
 
 
 

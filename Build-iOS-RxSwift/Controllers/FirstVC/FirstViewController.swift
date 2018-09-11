@@ -21,15 +21,14 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate, ViewModel
     typealias ViewModelType = FirstVCViewModel
     var viewModel: FirstVCViewModel!
     
-    var spinner = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 120, height: 80), type: .ballPulseSync, color: App.Color.midGreen, padding: 0)
     private var flickrPhotosView: FlickrPhotosView!
+    var spinner = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 120, height: 80), type: .ballPulseSync, color: App.Color.midGreen, padding: 0)
     
     var flickPhotosDataSourse: FlickPhotosDataSourse!
     var data = BehaviorRelay<[SectionOfCustomData]>(value: [
         SectionOfCustomData(title: "", items: [])
         ])
     var photosArray = BehaviorRelay<[FlickrPhoto]>(value: [])
-        // [FlickrPhoto]()
     var currentPage = BehaviorRelay<Int>(value: 1)
     private let disposeBag = DisposeBag()
     private var isNotFirstAttempting = false
@@ -56,12 +55,12 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate, ViewModel
             tabVC.didTapTab = {_ in }
         }
         
-        printMine(items: "resources: \(RxSwift.Resources.total)")
+//        printMine(items: "resources: \(RxSwift.Resources.total)")
     }
     
     deinit {
-        printMine(items: "resources: \(RxSwift.Resources.decrementTotal())")
-        printMine(items: "deinited \(self.description)")
+//        printMine(items: "resources: \(RxSwift.Resources.decrementTotal())")
+//        printMine(items: "deinited \(self.description)")
     }
     
     private func setupUI() {
