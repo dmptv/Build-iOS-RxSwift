@@ -53,6 +53,7 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate, ViewModel
             let item: FlickrPhoto = self.photosArray.value[indexPath.item]
             
             let vc = DetailFlickrPhotoViewController()
+            vc.startLoading()
             vc.photoImageView.kf.setImage(with: item.largePhotoUrl, placeholder: nil, options: [KingfisherOptionsInfoItem.forceTransition], progressBlock: nil, completionHandler: { (img, err, cashtype, url) in
                 
                 vc.stopLoading()

@@ -38,7 +38,6 @@ class DetailFlickrPhotoViewController: UIViewController {
         
         view.backgroundColor = .white
         
-        startLoading()
         setupUI()
     }
     
