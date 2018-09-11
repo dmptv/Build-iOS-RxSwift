@@ -59,12 +59,12 @@ extension AuthService: AuthorizedTargetType {
 
 protocol AuthorizedTargetType: TargetType {
     var needsAuth: Bool { get }
+
 }
 
 extension AuthorizedTargetType {
     var baseURL: URL { return URL(string: App.StringStruct.githubBaseUrl)! }
 }
-
 
 
 

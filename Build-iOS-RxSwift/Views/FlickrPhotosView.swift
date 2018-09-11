@@ -12,10 +12,13 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
+
 class FlickrPhotosView: UIView {
 
     private(set) var collectionView: UICollectionView!
     public var itemsCount = BehaviorRelay<Int>(value: 0)
+    
+    var presentImageView: ((IndexPath) -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -67,6 +70,15 @@ extension FlickrPhotosView: UICollectionViewDelegateFlowLayout {
         }
         
         return itemSize
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if let clouser = presentImageView {
+            clouser(indexPath)
+        }
+        
+        collectionView.deselectItem(at: indexPath, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

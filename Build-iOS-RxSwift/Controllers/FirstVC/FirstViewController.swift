@@ -46,6 +46,21 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate, ViewModel
         
         setupUI()
         bindRx()
+        
+        flickrPhotosView.presentImageView = { [weak self] indexPath in
+            guard let `self` = self else { return }
+
+            let item: FlickrPhoto = self.photosArray.value[indexPath.item]
+            
+            let vc = DetailFlickrPhotoViewController()
+            vc.photoImageView.kf.setImage(with: item.largePhotoUrl, placeholder: nil, options: [KingfisherOptionsInfoItem.forceTransition], progressBlock: nil, completionHandler: { (img, err, cashtype, url) in
+                
+                vc.stopLoading()
+            })
+            
+            
+            self.present(vc, animated: true, completion: nil)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,13 +69,10 @@ class FirstViewController: UIViewController, Stepper, FABMenuDelegate, ViewModel
         if let tabVC = parent as? AppTabBarController {
             tabVC.didTapTab = {_ in }
         }
-        
-//        printMine(items: "resources: \(RxSwift.Resources.total)")
     }
     
     deinit {
-//        printMine(items: "resources: \(RxSwift.Resources.decrementTotal())")
-//        printMine(items: "deinited \(self.description)")
+        printMine(items: "deinited \(self.description)")
     }
     
     private func setupUI() {

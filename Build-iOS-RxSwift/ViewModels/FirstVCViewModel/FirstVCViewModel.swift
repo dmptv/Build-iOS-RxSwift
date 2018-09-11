@@ -64,6 +64,7 @@ class FirstVCViewModel: NSObject, ServicesViewModel {
                 }
             }
             .disposed(by: disposeBag)
+       
     }
     
 }

@@ -80,9 +80,19 @@ class MainMenuFlow: Flow {
     
     private func configuredFirstVC() -> FirstViewController {
         let viewModel = FirstVCViewModel()
-        let services = MoyaProvider<FetchPhotosServise>()
+        let services = MoyaProvider<FetchPhotosServise>(plugins: [
+            NetworkLoggerPlugin(verbose: true),
+            AuthPlugin(tokenClosure: { return App.StringStruct.APIKey }),
+            NetworkActivityPlugin(networkActivityClosure: { (type, targetType) in
+                switch type {
+                case .began:
+                    print("--> NetworkActivity began")
+                case .ended:
+                    print("--> NetworkActivity ended")
+                }
+            })
+            ])
         let viewController = FirstViewController.instantiate(withViewModel: viewModel, andServices: services)
-//            FirstViewController.instantiate(withViewModel: viewModel)
         return viewController
     }
 

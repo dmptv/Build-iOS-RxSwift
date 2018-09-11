@@ -67,11 +67,53 @@ extension FetchPhotosServise: AuthorizedTargetType {
     var needsAuth: Bool {
         switch self {
         case .photos:
-            return false
+            return true
         }
     }
  
 }
+
+struct AuthPlugin: PluginType {
+    let tokenClosure: () -> String?
+    
+    // Called to modify a request before sending.
+    func prepare(_ request: URLRequest, target: TargetType) -> URLRequest {
+        guard
+            let token = tokenClosure(),
+            let target = target as? AuthorizedTargetType,
+            target.needsAuth
+            else { return request }
+        
+        print("--> token is", token)
+        
+        var request = request
+        request.addValue("Bearer " + token, forHTTPHeaderField: "Authorization")
+        return request
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

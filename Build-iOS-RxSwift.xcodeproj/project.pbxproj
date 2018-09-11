@@ -81,6 +81,7 @@
 		9DA1BC94213653C8009168B6 /* FirstVCFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA1BC93213653C8009168B6 /* FirstVCFlow.swift */; };
 		9DA1BC96213654F4009168B6 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA1BC95213654F4009168B6 /* FirstViewController.swift */; };
 		9DA1BC9921365651009168B6 /* FirstVCViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA1BC9821365651009168B6 /* FirstVCViewModel.swift */; };
+		9DF865512147FE78003978B3 /* DetailFlickrPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF865502147FE78003978B3 /* DetailFlickrPhotoViewController.swift */; };
 		9DFA23A1213EC568001A61E1 /* FlickrPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA23A0213EC568001A61E1 /* FlickrPhoto.swift */; };
 		9DFA23A3213EC74C001A61E1 /* Dispatch+Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA23A2213EC74C001A61E1 /* Dispatch+Globals.swift */; };
 		9DFA23A5213EDD66001A61E1 /* KeyedDecodingContainer+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFA23A4213EDD66001A61E1 /* KeyedDecodingContainer+Extentions.swift */; };
@@ -166,6 +167,7 @@
 		9DA1BC93213653C8009168B6 /* FirstVCFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstVCFlow.swift; sourceTree = "<group>"; };
 		9DA1BC95213654F4009168B6 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		9DA1BC9821365651009168B6 /* FirstVCViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstVCViewModel.swift; sourceTree = "<group>"; };
+		9DF865502147FE78003978B3 /* DetailFlickrPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailFlickrPhotoViewController.swift; sourceTree = "<group>"; };
 		9DFA23A0213EC568001A61E1 /* FlickrPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrPhoto.swift; sourceTree = "<group>"; };
 		9DFA23A2213EC74C001A61E1 /* Dispatch+Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dispatch+Globals.swift"; sourceTree = "<group>"; };
 		9DFA23A4213EDD66001A61E1 /* KeyedDecodingContainer+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyedDecodingContainer+Extentions.swift"; sourceTree = "<group>"; };
@@ -538,6 +540,7 @@
 				9DA1BC95213654F4009168B6 /* FirstViewController.swift */,
 				9D4060452142F3F8004D91DC /* FlickPhotosDataSourse.swift */,
 				9D4060472143A6C3004D91DC /* MyDateFormatter.swift */,
+				9DF865502147FE78003978B3 /* DetailFlickrPhotoViewController.swift */,
 			);
 			path = FirstVC;
 			sourceTree = "<group>";
@@ -837,6 +840,7 @@
 				9DFA23AB213F060F001A61E1 /* FlickrPhotoResponseObject.swift in Sources */,
 				9DA1BC94213653C8009168B6 /* FirstVCFlow.swift in Sources */,
 				9D4440E3212D8489007266C9 /* AppStep.swift in Sources */,
+				9DF865512147FE78003978B3 /* DetailFlickrPhotoViewController.swift in Sources */,
 				9D1C4E19212FF06C00EADD62 /* GradientView.swift in Sources */,
 				9D4440D2212D82FC007266C9 /* NextFlowItem.swift in Sources */,
 				9D406036214133FE004D91DC /* PhotosCollectionViewHeader.swift in Sources */,
